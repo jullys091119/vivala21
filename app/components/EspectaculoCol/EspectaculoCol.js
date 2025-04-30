@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import SimpleCard from '@/app/components/SimpleCard/SimpleCard';
+import Image from 'next/image'; // Importar Image de Next.js
 import styles from '@/app/components/EspectaculoCol/EspectaculoCol.module.css';
 
 const Espectaculos = () => {
@@ -50,7 +51,15 @@ const Espectaculos = () => {
           <div className={styles.mainContent}>
             <Link href={`/noticias/${currentShow?.id}`} className={styles.mainContentLink}>
               <div className={styles.mainContentHero}>
-                <img src={currentShow?._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? '/assets/images/placeholder.jpg'} alt="espectaculos" />
+                {/* Reemplazar <img> por <Image /> */}
+                <Image
+                  src={currentShow?._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? '/assets/images/placeholder.jpg'}
+                  alt="espectaculos"
+                  className={styles.heroImage}
+                  width={1200}   // Ajusta el tamaño según sea necesario
+                  height={675}   // Ajusta el tamaño según sea necesario
+                  loading="lazy" // Lazy loading para mejorar el rendimiento
+                />
                 <div className={styles.cardImageOverlay}></div>
                 <p className={styles.heroNewsCategoryName}>espectaculo</p>
                 <p className={styles.heroTitle} dangerouslySetInnerHTML={{ __html: currentShow?.title?.rendered }} />

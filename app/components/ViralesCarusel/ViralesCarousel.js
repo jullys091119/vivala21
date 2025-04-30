@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import Image from 'next/image';  // Importamos el componente Image
 import styles from '@/app/components/ViralesCarusel/ViralesCarousel.module.css';
 
 const ViralesCarousel = () => {
@@ -13,7 +14,7 @@ const ViralesCarousel = () => {
     return new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
   };
 
@@ -57,9 +58,13 @@ const ViralesCarousel = () => {
                   className={styles.carouselItemLink}
                 >
                   <div className={styles.carouselItem}>
-                    <img
+                    <Image
                       src={slides[index * 2]._embedded?.['wp:featuredmedia']?.[0]?.source_url || ''}
                       alt={slides[index * 2].title?.rendered}
+                      width={600}   // Establece el ancho de la imagen
+                      height={400}  // Establece el alto de la imagen
+                      className={styles.carouselImage}
+                      loading="lazy" // Activar carga perezosa
                     />
                     <div className={styles.carouselCaptionFirst}>
                       <p>{slides[index * 2].title?.rendered}</p>
@@ -77,9 +82,13 @@ const ViralesCarousel = () => {
                   className={styles.carouselItemLink}
                 >
                   <div className={styles.carouselItem}>
-                    <img
+                    <Image
                       src={slides[index * 2 + 1]._embedded?.['wp:featuredmedia']?.[0]?.source_url || ''}
                       alt={slides[index * 2 + 1].title?.rendered}
+                      width={600}   // Establece el ancho de la imagen
+                      height={400}  // Establece el alto de la imagen
+                      className={styles.carouselImage}
+                      loading="lazy" // Activar carga perezosa
                     />
                     <div className={styles.carouselCaptionSecond}>
                       <p>{slides[index * 2 + 1].title?.rendered}</p>
@@ -99,3 +108,5 @@ const ViralesCarousel = () => {
 };
 
 export default ViralesCarousel;
+
+

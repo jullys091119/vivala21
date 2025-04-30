@@ -7,6 +7,7 @@ import styles from './NewsCarousel.module.css'; // crea tu archivo CSS para esti
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import Image from 'next/image'; // Importa el componente Image de Next.js
 
 const NewsCarousel = () => {
   const router = useRouter();
@@ -68,7 +69,14 @@ const NewsCarousel = () => {
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>
           <div className={styles.carouselItem} onClick={() => navigateToPost(slide.id)}>
-            <img src={slide.image} alt={slide.title} />
+            {/* Usando Image de Next.js para optimizar las imágenes */}
+            <Image
+              src={slide.image}
+              alt={`Imagen de la noticia: ${slide.title}`} // Texto alternativo accesible
+              width={600} // Ajusta el ancho según lo necesites
+              height={400} // Ajusta la altura según lo necesites
+              className={styles.carouselImage}
+            />
             <div className={styles.carouselCaption}>
               <div className={styles.authorInfo}>
                 {slide.author} — {slide.date}

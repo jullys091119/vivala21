@@ -1,3 +1,4 @@
+import Image from 'next/image'; // Importa el componente Image de Next.js
 import styles from '@/app/components/PromoCard/PromoCard.module.css';
 
 const PromoCard = ({ title, image, link }) => {
@@ -7,7 +8,13 @@ const PromoCard = ({ title, image, link }) => {
         <h2 className={styles.promoCardTitle}>{title}</h2>
       </div>
       <div className={styles.promoCardBody}>
-        <img src={image} alt="Promo Card Image" className={styles.promoCardImage} />
+        <Image
+          src={image}
+          alt={`Imagen promocional de ${title}`} // Mejor descripción para accesibilidad
+          className={styles.promoCardImage}
+          width={500} // Agrega un tamaño adecuado según el diseño
+          height={300} // Agrega un tamaño adecuado según el diseño
+        />
       </div>
     </a>
   );

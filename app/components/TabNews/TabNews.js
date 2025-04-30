@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";  // Importar el componente Image de Next.js
 import styles from "@/app/components/TabNews/TabNews.module.css";
 
 const tabs = [
@@ -37,7 +38,7 @@ const TabNews = () => {
     };
 
     fetchData();
-  }, [currentTab]);
+  }, [currentTab, apiUrl]); // Agregar apiUrl como dependencia (aunque no cambiará, es una buena práctica)
 
   return (
     <div className={styles.tabNews}>
@@ -59,9 +60,12 @@ const TabNews = () => {
             <div key={post.id} className={styles.tabNewsBody}>
               <div className={styles.tabNewsItem}>
                 <div className={styles.comments}>
-                  <img
+                  <Image
                     src={post._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/placeholder.jpg"}
                     alt={post.title.rendered}
+                    width={600}  // Asegúrate de establecer el ancho y la altura
+                    height={400} // Ajusta según sea necesario
+                    loading="lazy" // Carga perezosa
                   />
                   <p className={styles.newsDescription}>{post.title.rendered}</p>
                 </div>

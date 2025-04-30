@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
+import Image from 'next/image';  // Importar Image de Next.js
 import styles from '@/app/noticias/[id]/pages.module.css';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
@@ -13,7 +13,6 @@ export default function NewsClient({ noticia }) {
   useEffect(() => {
     setCurrentUrl(process.env.NEXT_PUBLIC_SITE_URL + window.location.pathname);
   }, []);
-
 
   if (!noticia) return <div>Cargando noticia...</div>;
 
@@ -77,10 +76,12 @@ export default function NewsClient({ noticia }) {
 
             <div className={styles.newsAuthor}>
               {author?.avatar_urls?.[96] && (
-                <img
+                <Image
                   src={author.avatar_urls[96]}
                   alt={author.name || 'Autor'}
                   className={styles.authorImage}
+                  width={96}
+                  height={96}
                 />
               )}
               <p className={styles.newsAuthorName}>
@@ -93,11 +94,17 @@ export default function NewsClient({ noticia }) {
               <div className={styles.socialShareIcons}>
                 {Object.entries(shareLinks).map(([platform, url]) => (
                   <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
-                    <img src={`/images/${platform}.svg`} alt={`Share on ${platform}`} className={styles.shareIcon} />
+                    <Image
+                      src={`/images/${platform}.svg`}
+                      alt={`Share on ${platform}`}
+                      width={24}
+                      height={24}
+                      className={styles.shareIcon}
+                    />
                   </a>
                 ))}
                 <button onClick={copyLink} className={styles.shareIcon}>
-                  <img src="/images/link.svg" alt="Copy Link" />
+                  <Image src="/images/link.svg" alt="Copy Link" width={24} height={24} />
                 </button>
               </div>
             </div>

@@ -1,83 +1,107 @@
-"use client";
+'use client';
+import { useState, useEffect, useCallback } from 'react';
+import styles from '@/app/components/NationalCardv2/NationalCardv2.module.css';
+import Pagination from '@/app/components/Pagination/Pagination';
+import TabNews from '@/app/components/TabNews/TabNews';
+import LiveNews from '@/app/components/LiveNews/LiveNews';
+import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
+import Image from 'next/image';  // Importa el componente Image de Next.js
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import styles from "@/app/components/NationalCardv2/NationalCardv2.module.css";
-import CardLg from "@/app/components/cardLg/CardLg";
-
-const NacionalCardV2 = () => {
+const News = ({ categorySlug }) => {
   const [loading, setLoading] = useState(true);
-  const [news, setNews] = useState([]);
-  const [mainNews, setMainNews] = useState(null);
-  const [articles, setArticles] = useState([]);
-  const [error, setError] = useState(null);
+  const [noticias, setNoticias] = useState([]);
+  const [totalNoticias, setTotalNoticias] = useState(0);
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 10;
 
   const apiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
-  const stripHtml = (html) => {
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = html;
-    return tempDiv.textContent || tempDiv.innerText || "";
-  };
+  const fetchNoticias = useCallback(async () => {
+    try {
+      const responseTotal = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
+      if (!responseTotal.ok) throw new Error(`Error: ${responseTotal.status}`);
+      setTotalNoticias(parseInt(responseTotal.headers.get('X-WP-Total'), 10));
 
-  const limitTitle = (title) => {
-    if (!title) return "";
-    return title.length > 60 ? title.substring(0, 60) + "..." : title;
-  };
+      const response = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=${itemsPorPagina}&page=${paginaActual}`);
+      if (!response.ok) throw new Error(`Error: ${response.status}`);
+      const data = await response.json();
+      setNoticias(data);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, [apiUrl, categorySlug, paginaActual]);
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        if (!apiUrl) throw new Error("API URL no está definida.");
-
-        const response = await fetch(
-          `${apiUrl}wp/v2/posts?_embed&categories=11&per_page=4&offset=1`
-        );
-        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-
-        const data = await response.json();
-        setNews(data);
-        setMainNews(data[0]);
-        setArticles(data.slice(1, 4));
-      } catch (err) {
-        console.error("Error cargando noticias:", err);
-        setError("Error cargando noticias.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchNews();
-  }, []);
-
-  if (loading) return <div className={styles.loading}>Cargando...</div>;
-  if (error) return <div className={styles.error}>{error}</div>;
+    fetchNoticias();
+  }, [fetchNoticias]);
 
   return (
-    <div className={styles.nacionalCardContainer}>
-      {mainNews && (
+    <div className={styles.debugContainer}>
+      <div className={styles.layoutContainer}>
         <div className={styles.mainContent}>
-          <CardLg
-            currentShow={mainNews}
-            category="Nacional"
-            classCss="cat--nacional"
-            placeholderImage="/images/custom-placeholder.jpg"
-            altText=""
-          />
-        </div>
-      )}
+          {!loading && totalNoticias > 0 && (
+            <Pagination totalItems={totalNoticias} itemsPerPage={itemsPorPagina} maxVisiblePages={7} onPageChange={setPaginaActual} />
+          )}
 
-      <div className={styles.sideContent}>
-        {articles.map((article) => (
-          <Link key={article.id} href={`/noticias/${article.id}`} className={styles.sideCard}>
-            <p className={styles.newsCategoryName}>NACIONAL</p>
-            <p className={styles.title}>{limitTitle(stripHtml(article?.title?.rendered || ""))}</p>
-          </Link>
-        ))}
+          <div className={styles.widgetContent}>
+            <div className={styles.newsContainer}>
+              {!loading ? (
+                noticias.map((noticia) => (
+                  <div key={noticia.id} className={styles.newsCard}>
+                    <div className={styles.itemInner}>
+                      {noticia._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+                        <a href={`/noticias/${noticia.id}`} className={styles.itemThumbnail}>
+                          {/* Reemplazamos <img> con <Image> */}
+                          <Image
+                            src={noticia._embedded['wp:featuredmedia'][0].source_url}
+                            alt={noticia.title.rendered}
+                            width={500}  // Ajusta el tamaño según sea necesario
+                            height={300} // Ajusta el tamaño según sea necesario
+                            className={styles.cardImage}
+                            loading="lazy"  // Activamos el lazy loading
+                          />
+                        </a>
+                      )}
+                      <div className={styles.itemContent}>
+                        <div className={styles.itemLabels}>
+                          <a href={`/categorias/${categorySlug}`}>{categorySlug.toUpperCase()}</a>
+                        </div>
+                        <h3 className={styles.itemTitle}>
+                          <a href={`/noticias/${noticia.id}`} dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
+                        </h3>
+                        <div className={styles.metaItems}>
+                          <span className={styles.metaItem}>{noticia._embedded?.author?.[0]?.name}</span>
+                          <span className={styles.metaItem}>{new Date(noticia.date).toLocaleDateString('es-ES')}</span>
+                        </div>
+                        <div className={styles.itemSnippet} dangerouslySetInnerHTML={{ __html: noticia.excerpt.rendered }} />
+                        <a className={styles.itemReadMore} href={`/noticias/${noticia.id}`}>Leer más</a>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>Cargando noticias...</p>
+              )}
+            </div>
+          </div>
+
+          {!loading && totalNoticias > 0 && (
+            <Pagination totalItems={totalNoticias} itemsPerPage={itemsPorPagina} maxVisiblePages={7} onPageChange={setPaginaActual} />
+          )}
+        </div>
+
+        <div className={styles.sidebarContent}>
+          <div className={styles.stickySidebar}>
+            <TabNews />
+            <LiveNews />
+            <SubscribeCard />
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default NacionalCardV2;
+export default News;

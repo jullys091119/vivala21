@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import styles from '@/app/components/Pagination/Pagination.module.css';
 
 const Pagination = ({ totalItems, itemsPerPage = 10, maxVisiblePages = 5, onPageChange }) => {
@@ -6,10 +6,10 @@ const Pagination = ({ totalItems, itemsPerPage = 10, maxVisiblePages = 5, onPage
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-  const showLeftDots = useMemo(() => currentPage > 4, [currentPage]);
-  const showRightDots = useMemo(() => currentPage < totalPages - 3, [currentPage]);
+  const showLeftDots = currentPage > 4;
+  const showRightDots = currentPage < totalPages - 3;
 
-  const middlePages = useMemo(() => {
+  const middlePages = () => {
     const pages = [];
     let start = Math.max(2, currentPage - 1);
     let end = Math.min(totalPages - 1, currentPage + 1);
@@ -29,7 +29,7 @@ const Pagination = ({ totalItems, itemsPerPage = 10, maxVisiblePages = 5, onPage
     }
 
     return pages;
-  }, [currentPage, totalPages]);
+  };
 
   const changePage = (page) => {
     if (page >= 1 && page <= totalPages && page !== currentPage) {
@@ -45,7 +45,7 @@ const Pagination = ({ totalItems, itemsPerPage = 10, maxVisiblePages = 5, onPage
 
       {showLeftDots && <span className={styles.pageDots}>...</span>}
 
-      {middlePages.map(page => (
+      {middlePages().map(page => (
         <button key={page} className={`${styles.pageNumber} ${currentPage === page && styles.active}`} onClick={() => changePage(page)}>
           {page}
         </button>

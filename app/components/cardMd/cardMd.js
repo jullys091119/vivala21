@@ -34,11 +34,16 @@ const CardMd = ({ post, classCss = '' }) => {
 
   return (
     <Link href={`/noticias/${post.id}`} className={`${styles.cardMd} ${classCss}`}>
-      <img
-        className={styles.cardMdImg}
-        src={imageUrl}
-        alt={post.title?.rendered || "Imagen no disponible"}
-      />
+      <div className={styles.cardMdHero}>
+        <Image
+          className={styles.cardMdImg}
+          src={imageUrl}
+          alt={post.title?.rendered || "Imagen no disponible"}
+          width={500} // Ajusta el ancho según lo necesites
+          height={300} // Ajusta la altura según lo necesites
+          layout="responsive" // Esto asegura que la imagen sea responsiva
+        />
+      </div>
       <div className={styles.cardMdContent}>
         <h3 className={styles.cardMdTitle} dangerouslySetInnerHTML={{ __html: limitTitle(post.title?.rendered) }} />
         <div className={styles.cardMdMeta}>
@@ -46,7 +51,8 @@ const CardMd = ({ post, classCss = '' }) => {
             <Image
               src={AuthorIcon}
               alt="Author icon"
-              color='white'
+              width={16} // Ajusta según el tamaño del ícono
+              height={16} // Ajusta según el tamaño del ícono
               style={{ filter: 'brightness(0) invert(1)' }}
             />
             <p className={styles.cardMdMetaValue}>{post?._embedded?.author?.[0]?.name || "Anónimo"}</p>
@@ -55,6 +61,8 @@ const CardMd = ({ post, classCss = '' }) => {
             <Image
               src={IconsDate}
               alt="Date icon"
+              width={16} // Ajusta según el tamaño del ícono
+              height={16} // Ajusta según el tamaño del ícono
               style={{ filter: 'brightness(0) invert(1)' }}
             />
             <p className={styles.cardMdMetaValue}>{formatDate(post?.date)}</p>

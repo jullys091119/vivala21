@@ -1,16 +1,12 @@
-"use client"
+"use client";
 import React, { useRef, useEffect } from 'react';
 import { useAVMedia } from '@/app/composables/useAVMedia';  // Ajusta la ruta si es necesario
 
 const AVMedia = (props) => {
   const canvas = useRef(null);
 
-  useEffect(() => {
-    if (canvas.current) {
-      // Llamamos directamente a useAVMedia pasando el canvas y las propiedades
-      useAVMedia(canvas, props);  // Usamos las propiedades directamente
-    }
-  }, [props]);
+  // Llamamos directamente a useAVMedia y pasamos la referencia de canvas
+  useAVMedia({ media: props.media, fftSize: 256, lineColor: 'blue', canvWidth: 500, canvHeight: 300 });
 
   return <canvas ref={canvas} />;
 };

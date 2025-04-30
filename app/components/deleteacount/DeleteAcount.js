@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';  // Importar Image de Next.js
 import styles from '@/app/components/DeleteAcount/DeleteAcount.module.css';
 
 const DeleteAccount = () => {
@@ -14,7 +15,14 @@ const DeleteAccount = () => {
   return (
     <div className={styles.deleteAccountContainer}>
       <div className={styles.deleteHeader}>
-        <img src="/assets/images/accountUser/delete-icon.png" alt="Logo" className={styles.deleteIcon} />
+        {/* Reemplazar <img> por <Image /> */}
+        <Image
+          src="/assets/images/accountUser/delete-icon.png"
+          alt="Logo"
+          className={styles.deleteIcon}
+          width={40}  // Ajustar el tamaño
+          height={40} // Ajustar el tamaño
+        />
         <h2 className={styles.deleteTitle}>Borrar la cuenta</h2>
       </div>
 

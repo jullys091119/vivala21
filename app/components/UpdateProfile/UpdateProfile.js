@@ -1,5 +1,7 @@
+'use client';
 import { useState } from 'react';
 import styles from '@/app/components/UpdateProfile/UpdateProfile.module.css';
+import Image from 'next/image'; // Importa Image de Next.js
 import user from '@/app/assets/images/accountUser/Group4.png';
 import user2 from '@/app/assets/images/accountUser/Group5.png';
 
@@ -13,15 +15,26 @@ const UpdateProfile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    // Aquí puedes agregar la lógica de actualización del perfil
   };
 
   return (
     <div className={styles.updateProfileContainer}>
       <div className={styles.profileHeader}>
         <div className={styles.userIcon}>
-          <img src={user} alt="icono" />
-          <img src={user2} alt="icono" />
+          {/* Usando Image de Next.js para optimizar las imágenes */}
+          <Image
+            src={user}
+            alt="icono de usuario"
+            width={50} // Ajusta el tamaño de acuerdo a tus necesidades
+            height={50} // Ajusta el tamaño de acuerdo a tus necesidades
+          />
+          <Image
+            src={user2}
+            alt="icono de usuario"
+            width={50} // Ajusta el tamaño de acuerdo a tus necesidades
+            height={50} // Ajusta el tamaño de acuerdo a tus necesidades
+          />
         </div>
         <h2 className={styles.profileTitle}>Cuenta</h2>
       </div>

@@ -11,7 +11,7 @@ const AudioPlayer = () => {
     if (!showMedia && enabled) {
       setShowMedia(true);
     }
-  }, [enabled]);
+  }, [enabled, showMedia]); // Incluir 'showMedia' en el array de dependencias
 
   return (
     <div className={styles.container}>

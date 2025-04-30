@@ -42,7 +42,7 @@ const SinaloaNews = () => {
     };
 
     fetchNews();
-  }, []);
+  }, [apiUrl]); // Asegúrate de agregar 'apiUrl' como dependencia si cambia
 
   if (loading) return <div className={styles.loading}>Cargando...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
@@ -55,7 +55,7 @@ const SinaloaNews = () => {
             currentShow={mainNews}
             category="SINALOA"
             placeholderImage="/images/custom-placeholder.jpg"
-            altText="Noticias Sinaloa"
+            altText={mainNews.title?.rendered || "Noticias Sinaloa"}
           />
         </div>
       )}
@@ -65,7 +65,7 @@ const SinaloaNews = () => {
           <Link key={article.id} href={`/noticias/${article.id}`} className={`${styles.sideCard} ${index < rightColumnNews.length - 1 ? styles.mb36 : ""}`}>
             <Image
               src={article._embedded?.["wp:featuredmedia"]?.[0]?.source_url || "/images/placeholder.jpg"}
-              alt="sinaloa"
+              alt={article.title?.rendered || "Imagen de noticia"}
               width={320}
               height={137}
               className={styles.sideCardImage}

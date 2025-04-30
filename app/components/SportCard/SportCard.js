@@ -1,9 +1,9 @@
-// components/DeportesCard.js
 "use client";
 
 import { useEffect, useState } from "react";
 import styles from "../styles/DeportesCard.module.css";
 import Link from "next/link";
+import Image from "next/image"; // Importa el componente Image
 
 const DeportesCard = () => {
   const [loading, setLoading] = useState(true);
@@ -39,16 +39,26 @@ const DeportesCard = () => {
     return textarea.value;
   };
 
-  if (loading) return <div>Cargando...</div>;
+  if (loading) {
+    return (
+      <div className={styles.loadingSkeleton}>
+        <div className={styles.skeletonHero}></div>
+        <div className={styles.skeletonBody}></div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.deportesCardContainer}>
       <div className={styles.mainContent}>
         <Link href={`/noticias/${articles[0]?.id}`} className={styles.mainContentLink}>
           <div className={styles.mainContentHero}>
-            <img
+            <Image
               src={articles[0]?._embedded?.["wp:featuredmedia"]?.[0]?.source_url || ""}
               alt={articles[0]?.title?.rendered}
+              width={500}
+              height={300}
+              priority
             />
             <div className={styles.cardImageOverlay}></div>
             <p className={styles.heroNewsCategoryName}>deportes</p>
@@ -61,9 +71,9 @@ const DeportesCard = () => {
           </div>
           <div className={styles.mainContentFooter}>
             <div className={styles.authorInfo}>
-              <p>Enrique Gil Vargas</p>
+              <p>{articles[0]?.author || "Autor desconocido"}</p>
               <div className={styles.dateInfo}>
-                <p>Agosto 29, 2024 6:23 pm</p>
+                <p>{articles[0]?.date || "Fecha desconocida"}</p>
               </div>
             </div>
           </div>

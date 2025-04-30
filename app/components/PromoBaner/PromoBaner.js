@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";  // Importa Image de Next.js
 import styles from "@/app/components/PromoBaner/PromoBaner.module.css";
 
 const PromoBanners = () => {
@@ -49,14 +50,36 @@ const PromoBanners = () => {
             <li key={banner.id}>
               {banner.acf?.banner_link && (
                 <>
+                  {/* Reemplazar <img> con <Image /> de Next.js */}
                   <a href={banner.acf.banner_link} target="_blank" rel="noopener noreferrer">
-                    <img src={getImageUrl(banner.acf.imagen_movil)} alt={banner.title.rendered} className={styles.bannerMobile} loading="lazy" />
+                    <Image
+                      src={getImageUrl(banner.acf.imagen_movil)}
+                      alt={banner.title.rendered}
+                      className={styles.bannerMobile}
+                      width={600}  // Ajusta el tamaño según sea necesario
+                      height={300}  // Ajusta el tamaño según sea necesario
+                      loading="lazy"
+                    />
                   </a>
                   <a href={banner.acf.banner_link} target="_blank" rel="noopener noreferrer">
-                    <img src={getImageUrl(banner.acf.imagen_tablet)} alt={banner.title.rendered} className={styles.bannerTablet} loading="lazy" />
+                    <Image
+                      src={getImageUrl(banner.acf.imagen_tablet)}
+                      alt={banner.title.rendered}
+                      className={styles.bannerTablet}
+                      width={600}  // Ajusta el tamaño según sea necesario
+                      height={300}  // Ajusta el tamaño según sea necesario
+                      loading="lazy"
+                    />
                   </a>
                   <a href={banner.acf.banner_link} target="_blank" rel="noopener noreferrer">
-                    <img src={getImageUrl(banner.acf.banner)} alt={banner.title.rendered} className={styles.bannerDesktop} loading="lazy" />
+                    <Image
+                      src={getImageUrl(banner.acf.banner)}
+                      alt={banner.title.rendered}
+                      className={styles.bannerDesktop}
+                      width={1200}  // Ajusta el tamaño según sea necesario
+                      height={630}  // Ajusta el tamaño según sea necesario
+                      loading="lazy"
+                    />
                   </a>
                 </>
               )}

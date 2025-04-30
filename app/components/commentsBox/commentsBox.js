@@ -1,19 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // Importa useCallback para evitar problemas de dependencia
+import Image from 'next/image'; // Importa Image de Next.js
 import styles from '@/app/components/commentsBox/commentsBox.module.css';
 
-const commentBox = ({ postId, user }) => {
+const CommentBox = ({ postId, user }) => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [sortOrder, setSortOrder] = useState('oldest');
   const isAuthenticated = user?.isAuthenticated || false;
   const userAvatar = user?.avatar || 'https://via.placeholder.com/50';
 
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
-  const fetchComments = async () => {
+  // Usa useCallback para evitar que la función se recree en cada renderizado
+  const fetchComments = useCallback(async () => {
     try {
       const response = await fetch(`/api/comments?post=${postId}`);
       const data = await response.json();
@@ -21,7 +19,11 @@ const commentBox = ({ postId, user }) => {
     } catch (error) {
       console.error('Error fetching comments:', error);
     }
-  };
+  }, [postId]); // Asegúrate de agregar postId como dependencia
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]); // Agrega fetchComments como dependencia
 
   const submitComment = async () => {
     if (!newComment.trim()) {
@@ -81,7 +83,7 @@ const commentBox = ({ postId, user }) => {
       </div>
 
       <div className={styles.commentBox}>
-        <img src={userAvatar} alt="User Avatar" className={styles.userAvatar} />
+        <Image src={userAvatar} alt="User Avatar" className={styles.userAvatar} width={50} height={50} /> {/* Usamos Image aquí */}
         <textarea
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
@@ -106,7 +108,13 @@ const commentBox = ({ postId, user }) => {
           <li key={comment.id} className={styles.commentItem}>
             <div className={styles.commentHeader}>
               <div className={styles.authorInfo}>
-                <img src={comment.author_avatar_urls['48']} alt={comment.author_name} className={styles.authorAvatar} />
+                <Image
+                  src={comment.author_avatar_urls['48']}
+                  alt={comment.author_name}
+                  className={styles.authorAvatar}
+                  width={48}
+                  height={48}
+                />
                 <span className={styles.authorName}>{comment.author_name}</span>
               </div>
               <span className={styles.commentDate}>{formatDate(comment.date)}</span>
@@ -119,4 +127,4 @@ const commentBox = ({ postId, user }) => {
   );
 };
 
-export default commentBox;
+export default CommentBox;

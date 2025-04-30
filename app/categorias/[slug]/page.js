@@ -6,6 +6,7 @@ import Pagination from '@/app/components/Pagination/Pagination';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
+import Image from 'next/image';
 
 const News = ({ categorySlug }) => {
   const [loading, setLoading] = useState(true);
@@ -14,7 +15,7 @@ const News = ({ categorySlug }) => {
   const [paginaActual, setPaginaActual] = useState(1);
   const itemsPorPagina = 10;
 
-  const fetchNoticias = async () => {
+  const fetchNoticias = useCallback(async () => {
     try {
       const responseTotal = await fetch(`URL_DE_API/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
       if (!responseTotal.ok) throw new Error(`Error: ${responseTotal.status}`);
@@ -29,11 +30,12 @@ const News = ({ categorySlug }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [categorySlug, paginaActual]); // 'categorySlug' y 'paginaActual' son dependencias
 
   useEffect(() => {
     fetchNoticias();
-  }, [categorySlug, paginaActual]);
+  }, [fetchNoticias]); // Ejecuta cuando 'fetchNoticias' cambie
+
 
   return (
     <div className={styles.debugContainer}>
@@ -51,7 +53,13 @@ const News = ({ categorySlug }) => {
                     <div className={styles.itemInner}>
                       {noticia._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
                         <a href={`/noticias/${noticia.id}`} className={styles.itemThumbnail}>
-                          <img src={noticia._embedded['wp:featuredmedia'][0].source_url} alt={noticia.title.rendered} />
+                          <Image
+                            src={noticia._embedded['wp:featuredmedia'][0].source_url}
+                            alt={noticia.title.rendered}
+                            width={500}  // Especifica un ancho adecuado
+                            height={300} // Especifica una altura adecuada
+                            layout="responsive"  // Ajusta el tamaño de la imagen
+                          />
                         </a>
                       )}
                       <div className={styles.itemContent}>

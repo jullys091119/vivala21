@@ -20,13 +20,18 @@ const CardLg = ({ currentShow, category = "Internacional", placeholderImage, alt
 
   const limitTitle = (title) => title?.length > 150 ? title.substring(0, 150) + '...' : title;
 
+  const imageUrl = currentShow?._embedded?.['wp:featuredmedia']?.[0]?.source_url || placeholderImage;
+
   return (
     <Link href={`/noticias/${currentShow?.id}`} className={`${styles.cardLg} ${classCss}`}>
       <div className={styles.cardLg__hero}>
-        <img
+        <Image
           className={styles.cardLg__img}
-          src={currentShow?._embedded?.['wp:featuredmedia']?.[0]?.source_url || placeholderImage}
+          src={imageUrl}
           alt={altText}
+          width={500} // Ajusta el ancho según lo necesites
+          height={300} // Ajusta la altura según lo necesites
+          layout="responsive" // Esto asegura que la imagen sea responsiva
         />
         <div className={styles.cardLg__titleWrp}>
           <p className={styles.cardLgCategory}>{category}</p>
@@ -41,6 +46,8 @@ const CardLg = ({ currentShow, category = "Internacional", placeholderImage, alt
               <Image
                 src={AuthorIcon}
                 alt="Author icon"
+                width={16} // Ajusta según el tamaño del ícono
+                height={16} // Ajusta según el tamaño del ícono
               />
               <p className={styles.cardLg__metaValue}>{currentShow?._embedded?.author?.[0]?.name || "Anónimo"}</p>
             </div>
@@ -48,10 +55,11 @@ const CardLg = ({ currentShow, category = "Internacional", placeholderImage, alt
               <Image
                 src={IconsDate}
                 alt="Date icon"
+                width={16} // Ajusta según el tamaño del ícono
+                height={16} // Ajusta según el tamaño del ícono
               />
               <p className={styles.cardLg__metaValue}>{formatDate(currentShow?.date)}</p>
             </div>
-
           </div>
         </div>
       </div>

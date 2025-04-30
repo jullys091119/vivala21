@@ -1,0 +1,52 @@
+/* SimpleCard.module.css */
+
+.simpleCard {
+  background-color: #fff;
+  padding-left: 14px;
+  padding-right: 14px;
+  min-height: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 25px 0;
+}
+
+@media screen and (max-width: 767px) {
+  .simpleCard {
+    margin: 0;
+  }
+}
+
+.simpleCardTitle {
+  text-decoration: none;
+}
+
+.simpleCardTitle h2 {
+  color: #000000;
+  margin-top: 0;
+  margin-bottom: 7px;
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18.19px;
+  text-align: left;
+}
+
+
+.simpleCardContent {
+  font-family: Montserrat, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18.29px;
+  text-align: left;
+}
+
+.categoryTag {
+  display: inline-block;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 10px;
+  font-family: Montserrat, sans-serif;
+  margin-bottom: 5px;
+}

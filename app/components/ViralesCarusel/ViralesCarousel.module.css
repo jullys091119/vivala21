@@ -1,0 +1,149 @@
+.viralesCarouselContainer {
+  margin: 0 auto;
+}
+
+.carouselItemPair {
+  display: flex;
+  gap: 30px;
+  width: 100%;
+}
+
+.carouselItemLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  flex: 1;
+}
+
+.carouselItemLink:hover {
+  opacity: 0.95;
+}
+
+.carouselItem {
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  position: relative;
+}
+
+.carouselItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carouselItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.carouselCaptionFirst,
+.carouselCaptionSecond {
+  position: absolute;
+  top: 90px;
+  left: 20px;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  max-width: 377px;
+  z-index: 2;
+}
+
+.carouselCaptionFirst p,
+.carouselCaptionSecond p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.authorInfoFirst,
+.authorInfoSecond {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  z-index: 2;
+  gap: 20px;
+}
+
+.authorInfoFirst {
+  left: 20px;
+}
+
+.authorInfoSecond {
+  right: 20px;
+}
+
+.authorInfoFirst p,
+.authorInfoSecond p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 17px;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.mr46 {
+  margin-right: 46px;
+}
+
+.mr5 {
+  margin-right: 5px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .carouselItemPair {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .carouselItem {
+    height: 289px;
+  }
+}
+
+@media (max-width: 600px) {
+  .carouselItem {
+    height: 235px;
+  }
+
+  .carouselCaptionFirst,
+  .carouselCaptionSecond {
+    top: 40px;
+    padding: 0;
+    left: 25px;
+    max-width: 100%;
+  }
+
+  .authorInfoSecond {
+    right: 20px;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 460px) {
+
+  .carouselCaptionFirst p,
+  .carouselCaptionSecond p {
+    font-size: 12px;
+  }
+}

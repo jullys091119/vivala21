@@ -1,0 +1,37 @@
+.promoCard {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.promoCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #006238;
+  padding: 14px 23px;
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14.63px;
+  text-align: center;
+}
+
+.promoCardBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 17px 0px;
+  background-color: #FFFFFF;
+}
+
+.promoCardTitle {
+  color: #FFFFFF !important;
+}
+
+.promoCardImage {
+  width: 267px;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,99 @@
+.deleteAccountContainer {
+  width: 100%;
+}
+
+.deleteHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.deleteIcon {
+  width: 26px;
+  height: 26px;
+}
+
+.deleteTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+  margin-bottom: 0px;
+}
+
+.deleteWarning {
+  color: #374151;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  max-width: 392px;
+}
+
+.deleteForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 599px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.passwordInput {
+  position: relative;
+  width: 100%;
+}
+
+.formInput {
+  width: 100%;
+  height: 45px;
+  border: 1px solid #929292;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 0 40px 0 16px;
+  box-sizing: border-box;
+  color: #929292;
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: #15803d;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
+}
+
+.eyeButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteButton {
+  width: 207px;
+  height: 42px;
+  padding: 10px 16px;
+  background-color: #b91c1c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 16px auto;
+}
+
+.deleteButton:hover {
+  background-color: #991b1b;
+}

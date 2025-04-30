@@ -1,0 +1,343 @@
+/* Header.module.css */
+
+.header {
+  background-color: white;
+  height: 140px;
+  font-family: "Monterrat";
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  max-width: 1125px;
+  margin: auto;
+  padding: 6px
+}
+
+.socialIcons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.burgerMenu {
+  display: none;
+}
+
+.icon {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.searchLogin {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.loginButton,
+.subscribeButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  color: #1F621F;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.searchButton {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  line-height: 13px;
+  color: #1F621F;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.searchButtonSmall {
+  display: none;
+}
+
+.mainHeader {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  display: flex;
+}
+
+.logo {
+  height: 50px;
+}
+
+.mobileNav,
+.mainNav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.navItem {
+  align-items: center;
+  color: #1f621f;
+  cursor: pointer;
+  display: flex;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 3px;
+  position: relative;
+  text-decoration: none;
+}
+
+.radio {
+  background-color: #008000;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radio span {
+  margin-right: 5px;
+}
+
+.textSinaloa {
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 17px;
+  color: #1F621F;
+  font-weight: 600 !important;
+}
+
+.dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: row !important;
+  color: #1F621F;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dropdown>span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #1F621F;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 17px;
+  text-decoration: none;
+
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 8px 0;
+  z-index: 1000;
+}
+
+.dropdown:hover .dropdownMenu {
+  display: block;
+}
+
+.dropdownMenu li {
+  list-style: none;
+}
+
+.dropdownMenu a {
+  display: block;
+  padding: 8px 16px;
+  color: #1F621F;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.dropdownMenu a:hover {
+  background-color: #f5f5f5;
+}
+
+.searchOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  padding-top: 100px;
+}
+
+.searchContainer {
+  width: 100%;
+  max-width: 800px;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+  margin: 0 20px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.searchContainer input {
+  width: 95%;
+  padding: 15px;
+  font-size: 24px;
+  border: none;
+  border-bottom: 2px solid #ddd;
+  outline: none;
+}
+
+.searchContainer input:focus {
+  border-bottom-color: #078207;
+}
+
+.radioDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.radioStationsDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 8px;
+}
+
+.stationItem {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.stationItem:hover {
+  background-color: #f5f5f5;
+}
+
+.stationLogo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.stationInfo {
+  display: flex;
+  align-items: center;
+}
+
+.stationName {
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+
+.playButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.playButton:hover {
+  background-color: rgba(0, 98, 56, 0.1);
+}
+
+.mobileMenu {
+  position: fixed;
+  inset: 0;
+  background: #006238;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.mobileMenuClose {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.collapsibleMenu {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.submenu {
+  padding-left: 20px;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .radioStationsDropdown {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    max-height: 70vh;
+  }
+}

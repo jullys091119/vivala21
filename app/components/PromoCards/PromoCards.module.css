@@ -1,0 +1,26 @@
+.promoCards {
+  display: grid;
+  gap: 51px;
+  margin-top: 51px;
+}
+
+/* Mobile: 1 card */
+@media (max-width: 639px) {
+  .promoCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet: 2 cards */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .promoCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 1 card */
+@media (min-width: 1024px) {
+  .promoCards {
+    grid-template-columns: 1fr;
+  }
+}

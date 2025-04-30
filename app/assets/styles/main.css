@@ -1,0 +1,114 @@
+body {
+  background-color: #EFEFEF;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+.container {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Spacing */
+.mt-32 {
+  margin-top: 32px;
+}
+
+.mt-31 {
+  margin-top: 31px;
+}
+
+.mb-32 {
+  margin-bottom: 32px;
+}
+
+.mb-35 {
+  margin-bottom: 35px;
+}
+
+.mb-36 {
+  margin-bottom: 36px;
+}
+.mr-46 {
+  margin-right: 46px !important;
+}
+
+.mr-20 {
+  margin-right: 20px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px !important;
+}
+
+.mr-8 {
+  margin-right: 8px !important;
+}
+
+.mr-5 {
+  margin-right: 5px !important;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.my-40 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+
+.pl-34 {
+  padding-left: 34px;
+}
+
+/* Colors */
+.blueish-color {
+  color: #0079CA;
+}
+
+.purpleish-color {
+  color: #704DAB;
+}
+
+.card-image-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; /* Adjust height as needed */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  pointer-events: none;
+}
+
+.news-breadcrumbs a {
+  text-decoration: none;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+  color: #1F621F;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+/* colors */
+.redish-color {
+  color: #B40000;
+}

@@ -1,0 +1,93 @@
+.updateProfileContainer {
+  width: 100%;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userIcon {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.accountForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 599px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.inputData {
+  width: 100%;
+  height: 38px;
+  border: 1px solid #929292;
+  border-radius: 4px;
+  font-size: 14px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  color: #929292;
+}
+
+.inputData:focus {
+  outline: none;
+  border-color: #15803d;
+  box-shadow: 0 0 0 3px rgba(21, 128, 61, 0.1);
+}
+
+.formSubmit {
+  padding-top: 16px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.submitButton {
+  width: 207px;
+  height: 42px;
+  padding: 10px 16px;
+  background-color: #15803d;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #166534;
+}
+
+@media (max-width: 768px) {
+  .formGroup {
+    max-width: 100%;
+  }
+
+  .formSubmit {
+    margin: 16px auto;
+  }
+}

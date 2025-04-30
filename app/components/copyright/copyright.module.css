@@ -1,0 +1,13 @@
+.footerCopyright {
+  background-color: #EFEFEF;
+  max-width: 1147px;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  padding: 0 15px;
+  text-align: center;
+}

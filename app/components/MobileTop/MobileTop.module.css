@@ -1,0 +1,27 @@
+.mobileTopBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.socialIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actionIcons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.loginLink,
+.registerLink {
+  color: white;
+  text-decoration: none;
+  font-family: 'Montserrat';
+  font-size: 14px;
+  font-weight: 500;
+}

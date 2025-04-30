@@ -1,0 +1,66 @@
+.promoBanners {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1147px;
+  padding: 0 15px;
+}
+
+.bannerList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.bannerList li {
+  margin: 10px 0;
+}
+
+.bannerMobile,
+.bannerTablet,
+.bannerDesktop {
+  max-width: 100%;
+  height: auto;
+  display: none;
+  margin: 0 auto;
+}
+
+/* Mobile screens */
+@media (max-width: 639px) {
+  .bannerMobile {
+    display: block;
+  }
+
+  .bannerTablet,
+  .bannerDesktop {
+    display: none;
+  }
+}
+
+/* Tablet screens */
+@media (min-width: 640px) and (max-width: 1023px) {
+
+  .bannerMobile,
+  .bannerDesktop {
+    display: none;
+  }
+
+  .bannerTablet {
+    display: block;
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+
+  .bannerMobile,
+  .bannerTablet {
+    display: none;
+  }
+
+  .bannerDesktop {
+    display: block;
+  }
+}

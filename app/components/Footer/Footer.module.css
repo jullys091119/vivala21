@@ -1,0 +1,256 @@
+.footer {
+  background-color: #EFEFEF;
+  color: white;
+  max-width: 1147px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.container {
+  max-width: 1147px;
+  margin: 0 auto;
+  padding: 35px;
+  background-color: #006238;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.footerLogoContact {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+}
+
+.footerLogo {
+  max-width: 200px;
+  margin-bottom: 1rem;
+  margin-top: 13px;
+}
+
+.contactInfo {
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 385px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  text-align: left;
+}
+
+.iconLocation,
+.iconEmail,
+.iconPhone {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.footerSections {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerSections h3 {
+  margin-bottom: 0;
+  font-family: Montserrat, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 29.26px;
+  text-align: left;
+}
+
+.footerSections nav a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+}
+
+.footerSections nav a:hover {
+  text-decoration: underline;
+}
+
+.footerNav {
+  display: block;
+  width: 92%;
+  text-align: left;
+  margin-bottom: 20px;
+  max-width: 327px;
+}
+
+.footerNav a {
+  display: inline-block;
+  width: auto;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  margin-right: 12px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
+.footerNav a:hover {
+  text-decoration: underline;
+}
+
+.customHr {
+  margin-bottom: 15px;
+}
+
+.footerSubscribe {
+  max-width: 280px;
+}
+
+.footerSubscribe h3 {
+  font-family: Montserrat, sans-serif;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 29.26px;
+  text-align: left;
+  margin-bottom: 0;
+}
+
+.footerSubscribe form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footerSubscribe form input {
+  box-sizing: border-box;
+  margin-bottom: 21px;
+  padding: 0.5rem;
+  border: none;
+  width: 100%;
+}
+
+.footerSubscribe form button {
+  width: 122px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.footerSubscribe form button:hover {
+  background-color: #45a049;
+}
+
+.footerSocial {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.socialIcon {
+  color: white;
+  font-size: 1.5rem;
+  margin: 0 0.5rem;
+}
+
+.facebook {
+  width: 30px;
+  height: 30px;
+}
+
+/* Redes sociales específicas */
+
+.socialIconMobile {
+  display: none;
+}
+
+.iconLocation,
+.iconEmail,
+.iconPhone {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-left: .4rem;
+}
+
+/* Contact Info */
+.contactItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.iconWrapper {
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.textWrapper {
+  flex-grow: 1;
+}
+
+.textWrapper p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Mensajes */
+.message {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+  font-family: Montserrat, sans-serif;
+  width: 100%;
+}
+
+.success {
+  background-color: rgba(220, 252, 231, 0.9);
+  color: #15803d;
+  border: 1px solid #15803d;
+}
+
+.error {
+  background-color: rgba(254, 226, 226, 0.9);
+  color: #dc2626;
+  border: 1px solid #dc2626;
+}
+
+/* Disabled */
+button:disabled,
+input:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 999px) {
+  .footerContent {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerLogoContact,
+  .footerSections,
+  .footerSubscribe {
+    width: 280px;
+  }
+
+  .footerLogoContact img {
+    margin-bottom: 40px !important;
+  }
+
+  .footerNav {
+    width: 100% !important;
+  }
+
+  .footerSocial {
+    display: none !important;
+  }
+
+  .socialIconMobile {
+    display: flex !important;
+  }
+}

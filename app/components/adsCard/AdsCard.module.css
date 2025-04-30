@@ -1,0 +1,29 @@
+.ads-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #006238;
+  padding: 14px 23px;
+  color: #fff;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14.63px;
+  text-align: center;
+}
+
+.ads-card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 17px 27px;
+  background-color: #FFFFFF;
+}
+
+.ads-image {
+  object-fit: cover;
+}
+
+.ads-title {
+  color: #FFFFFF;
+}

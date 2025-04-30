@@ -1,0 +1,143 @@
+.commentSection {
+  margin: 8px auto;
+  background-color: #fff;
+  padding: 16px;
+}
+
+.commentsStats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.commentsCount {
+  font-weight: 500;
+}
+
+.sortComments {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sortComments select {
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.commentBox {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.userAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.commentInput {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.submitButton {
+  padding: 8px 24px;
+  background-color: #078207;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submitButton:hover {
+  background-color: #056905;
+}
+
+.commentList {
+  list-style: none;
+  padding: 0;
+}
+
+.commentItem {
+  margin-bottom: 20px;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.authorAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.authorName {
+  font-weight: 500;
+  color: #333;
+}
+
+.commentDate {
+  color: #666;
+  font-size: 0.9em;
+}
+
+.commentContent {
+  margin: 0;
+}
+
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  background-color: #e0e0e0;
+}
+
+textarea.disabled {
+  background-color: #f5f5f5;
+  border-color: #ddd;
+}
+
+.submitButton.disabled {
+  background-color: #999;
+}
+
+.commentTextarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+
+@media (max-width: 500px) {
+  .commentsStats {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

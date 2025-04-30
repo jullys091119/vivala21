@@ -1,0 +1,35 @@
+.liveNews {
+  width: 100%;
+}
+
+.liveNewsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #006238;
+  padding: 14px 23px;
+  color: #fff;
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 14.63px;
+  text-align: center;
+}
+
+.liveNewsBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 17px 27px;
+  background-color: #FFFFFF;
+}
+
+.liveTitle {
+  color: #FFFFFF !important;
+  margin: 0;
+}
+
+.liveNewsBody iframe {
+  max-width: 100%;
+  height: auto;
+}

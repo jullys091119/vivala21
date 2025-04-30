@@ -1,0 +1,129 @@
+.espectaculosCardContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 28px;
+}
+
+
+.mainContent {
+  background-color: #FFFFFF;
+  width: 100%;
+}
+
+.mainContentHero {
+  position: relative;
+}
+
+.mainContentHero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mainContentHero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 290px;
+}
+
+.heroNewsCategoryName {
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  background-color: #704DAB;
+  max-width: 77px;
+  position: absolute;
+  top: 119px;
+  left: 23px;
+  text-transform: uppercase;
+  margin: 0;
+  z-index: 2;
+}
+
+.mainContentBody {
+  padding-top: 15px;
+  padding-left: 23px;
+  padding-right: 34px;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  line-height: 20.07px;
+}
+
+.heroTitle {
+  font-family: Montserrat, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: left;
+  color: #FFFFFF;
+  position: absolute;
+  top: 146px;
+  left: 23px;
+  max-width: 347px;
+  margin: 0;
+  z-index: 2;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.mainContentLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  background-color: #FFFFFF;
+  cursor: pointer;
+}
+
+.mainContentLink:hover {
+  opacity: 0.95;
+}
+
+.simpleCardMobile {
+  display: none;
+}
+
+.simpleCardTitle h2 {
+  color: #000000;
+  font-size: 15px;
+}
+
+
+@media (max-width: 768px) {
+  .simpleCardDesktop {
+    display: none;
+  }
+
+  .simpleCardMobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .simpleCard {
+    width: 100%;
+  }
+}

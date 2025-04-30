@@ -1,0 +1,338 @@
+/* index.module.css */
+
+.mainContainer {
+  max-width: 1147px;
+  margin: 0 auto;
+  padding: 30px 15px;
+}
+
+.containerNews {
+  color: #006238;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 0 0 0;
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+}
+
+.moreNewLinks {
+  color: #00a01f;
+  font-family: Montserrat, "sans-serif";
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.col1 {
+  width: 778px;
+}
+
+.col2 {
+  width: 300px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 70px !important;
+}
+
+
+.carouselItem {
+  position: relative;
+  min-height: 420px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carouselItem::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.carouselItem img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.carouselCaption {
+  position: absolute;
+  bottom: 60px;
+  left: 20px;
+  right: 60px;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  z-index: 2;
+}
+
+.authorInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 24px;
+}
+
+@media screen and (max-width: 767px) {
+  .authorInfo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.authorInfo p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.carouselCaption p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 1.2;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.carouselControls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navButton:focus {
+  outline: none;
+}
+
+.navButton svg {
+  width: 24px;
+  height: 24px;
+}
+
+.navButton.prev {
+  transform: rotate(180deg);
+}
+
+.radioMobile {
+  background-color: #008000;
+  padding: 5px 15px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 165px;
+  text-decoration: none;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 30px auto;
+  height: 40px;
+  display: none;
+}
+
+.twoColumnContainer {
+  display: flex;
+  /* ✅ Activa diseño en columnas */
+  gap: 20px;
+  margin-top: 7px;
+  /* ✅ Espacio entre columnas */
+}
+
+.column {
+  flex: 1;
+  /* ✅ Las columnas ocuparán espacio igual */
+  width: 50%;
+  /* ✅ Cada columna tomará el 50% del ancho */
+}
+
+@media (max-width: 768px) {
+  .twoColumnContainer {
+    flex-direction: column;
+    /* ✅ En pantallas pequeñas, se apilan */
+  }
+
+  .column {
+    width: 100%;
+  }
+}
+
+.twoColumnContainer {
+  display: flex;
+  /* ✅ Activa diseño en columnas */
+  gap: 20px;
+  /* ✅ Espacio entre columnas */
+}
+
+.column {
+  flex: 1;
+  /* ✅ Las columnas ocuparán espacio igual */
+  width: 50%;
+  /* ✅ Cada columna tomará el 50% del ancho */
+}
+
+@media (max-width: 768px) {
+  .twoColumnContainer {
+    flex-direction: column;
+    /* ✅ En pantallas pequeñas, se apilan */
+  }
+
+  .column {
+    width: 100%;
+  }
+}
+
+
+.radioMobile:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.radioMobile span {
+  display: flex;
+  align-items: center;
+  margin-right: 7px;
+}
+
+@media (max-width: 1200px) {
+  .col1 {
+    width: 70%;
+  }
+}
+
+@media (max-width: 1008px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .col1,
+  .col2 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .radioMobile {
+    display: flex;
+  }
+}
+
+.nacionalCardContainer h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #006238;
+}
+
+.radioDropdown {
+  position: relative;
+}
+
+.radioStationsDropdown {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+}
+
+.dropdownHeader {
+  padding: 16px;
+  border-bottom: 1px solid #E0E0E0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdownTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #333;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.closeButton svg {
+  width: 24px;
+  height: 24px;
+}
+
+.stationItem {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  gap: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.stationItem:last-child {
+  border-bottom: none;
+}
+
+.stationLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+@media (max-width: 640px) {
+  .radioStationsDropdown {
+    display: flex;
+  }
+}

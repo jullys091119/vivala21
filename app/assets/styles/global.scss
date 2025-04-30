@@ -1,0 +1,39 @@
+.main-container{
+    align-items: flex-start;
+
+    &__content{
+
+    }
+
+    &__sidebar{
+        position: sticky;
+        top: 1rem;
+    }
+}
+
+/*  |> Categories
+——————————————————————————————————————————————————————*/
+
+.cat--international {
+    .card-lg__category {
+        background: #b40000;
+    }
+}
+
+.cat--policiaca{
+    .card-lg__category {
+        background: #0079CA;
+    }
+}
+
+.cat--sinaloa{
+    .card-lg__category {
+        background: #00A01F;
+    }
+}
+
+.cat--nacional{
+    .card-lg__category {
+        background: #006238;
+    }
+}

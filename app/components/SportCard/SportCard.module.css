@@ -1,0 +1,114 @@
+.deportesCardContainer {
+  display: flex;
+  gap: 28px;
+}
+
+.mainContent {
+  background-color: #ffffff;
+}
+
+.mainContentHero {
+  position: relative;
+}
+
+.mainContentHero img {
+  width: 100%;
+  height: auto;
+  min-height: 345px;
+}
+
+.heroNewsCategoryName {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: #ffffff;
+  background-color: #180278;
+  position: absolute;
+  top: 165px;
+  left: 23px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+}
+
+.heroTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  position: absolute;
+  top: 200px;
+  left: 23px;
+  max-width: 347px;
+}
+
+.mainContentBody {
+  padding-top: 26px;
+  padding-left: 23px;
+  font-size: 14px;
+  text-align: justify;
+}
+
+.sideCard {
+  background-color: #ffffff;
+  padding: 30px 16px;
+  min-width: 397px;
+}
+
+.newsCategoryName {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: left;
+  color: #180278;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 700;
+  max-width: 355px;
+}
+
+.authorInfo {
+  display: flex;
+  padding-top: 26px;
+  padding-left: 23px;
+}
+
+.dateInfo {
+  margin-left: 52px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 968px) {
+  .deportesCardContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sideCard {
+    min-width: unset;
+  }
+
+  .mainContentHero img {
+    min-height: 250px;
+  }
+
+  .heroTitle {
+    max-width: calc(100% - 46px);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .heroNewsCategoryName {
+    top: calc(50% - 50px);
+  }
+}
+
+@media (max-width: 480px) {
+  .mainContentHero img {
+    min-height: 200px;
+  }
+
+  .heroTitle {
+    font-size: 18px;
+  }
+}

@@ -1,0 +1,48 @@
+.mainCardContainer .mainCardHeader h2 {
+  font-family: 'Montserrat', 'sans-serif';
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24.38px;
+  text-transform: uppercase;
+  color: #00A01F;
+  margin: 0;
+  /* Added for better spacing control */
+}
+
+.mainCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  /* Added for spacing between header and card */
+}
+
+.mainCardContainer .verMas {
+  text-decoration: none;
+  color: inherit;
+  color: #00A01F;
+  font-family: 'Montserrat', 'sans-serif';
+  font-weight: 500;
+}
+
+.verMas:hover {
+  color: #078207;
+}
+
+/* If you're using Tailwind's mt-40, you might want to add this as fallback */
+.mt-40 {
+  margin-top: 10rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mainCardContainer h2 {
+    font-size: 18px;
+  }
+
+  .mainCardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}

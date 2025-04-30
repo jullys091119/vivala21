@@ -1,0 +1,79 @@
+/* CardMd.module.css */
+
+.cardMd {
+  text-decoration: none;
+  position: relative;
+  flex: 1;
+}
+
+.cardMd:hover .cardMdImg {
+  filter: brightness(0.8);
+}
+
+.cardMd::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0) 100%);
+}
+
+.cardMdImg {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.cardMdContent {
+  position: relative;
+  position: absolute;
+  bottom: 30px;
+  max-width: 360px;
+  padding: 10px;
+  z-index: 1;
+}
+
+.cardMdTitle {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: left;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 21px;
+}
+
+.cardMdMeta {
+  display: flex;
+  gap: 1rem;
+  font-size: 12px;
+  color: white;
+  z-index: 1;
+}
+
+.cardMdMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.cardMdMetaIcon {
+  flex: 0 0 12px;
+  width: 1rem;
+  filter: brightness(0) invert(1) !important;
+}
+
+.cardMdMetaValue {
+  margin: 0;
+  line-height: 1;
+}

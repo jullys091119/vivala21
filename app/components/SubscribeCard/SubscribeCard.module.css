@@ -1,0 +1,93 @@
+.subscribeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+}
+
+.susbcribedContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+  padding: 17px 27px;
+  gap: 18px;
+}
+
+.subscribeCardHeader {
+  color: #fff;
+  text-align: center;
+  background: #006238;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 23px;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  width: 100%;
+}
+
+.subscribeText {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  text-align: left;
+}
+
+.subscribeCard h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.susbcribedContainer>input {
+  width: 243px;
+  height: 26px;
+  border-radius: 2px;
+  border: 1px solid #ddd;
+  padding: 0 5px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 12px;
+}
+
+.subscribeInput:focus {
+  outline: none;
+  border-color: #006238;
+}
+
+.subscribeButton {
+  width: 105px;
+  height: 26px;
+  border-radius: 2px;
+  background-color: #006238;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.subscribeButton:hover {
+  background-color: #004d2b;
+}
+
+.message {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.success {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.error {
+  background-color: #fee2e2;
+  color: #dc2626;
+}

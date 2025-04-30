@@ -1,0 +1,138 @@
+/* SinaloaCard.module.css */
+
+.nacionalCardContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  flex-direction: row;
+  gap: 28px;
+}
+
+@media screen and (max-width: 767px) {
+  .nacionalCardContainer {
+    flex-direction: column;
+  }
+}
+
+.mainContent {
+  background-color: #FFFFFF;
+  width: 100%;
+  max-width: 523px;
+}
+
+.mainContentHeader h2 {
+  font-family: Montserrat, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: left;
+  color: #00A01F;
+}
+
+.mainContentHero {
+  position: relative;
+  width: 100%;
+}
+
+.mainContentHero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sideContent {
+  flex-direction: column;
+  gap: 44px;
+  width: 456px;
+  height: 100%;
+  display: flex;
+}
+
+@media screen and (max-width: 767px) {
+  .sideContent {
+    width: 100%;
+    gap: 1rem;
+  }
+}
+
+.sideCard {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+}
+
+.sideCard::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.95) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sideCardContent {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 2;
+}
+
+.newsCategoryName {
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #FFFFFF;
+  padding: 5px 10px;
+  background-color: #00A01F;
+  max-width: 71px;
+  margin-bottom: 6px;
+}
+
+.title {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #FFFFFF;
+}
+
+.sideCard img {
+  width: 100%;
+  height: 137px;
+  object-fit: cover;
+}
+
+@media (max-width: 1008px) {
+  .sideCard img {
+    height: 164px;
+  }
+}
+
+@media (max-width: 767px) {
+  .sideCard img {
+    height: 136px;
+  }
+}
+
+.sideCard {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.sideCard:hover {
+  opacity: 0.9;
+}

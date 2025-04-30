@@ -1,0 +1,167 @@
+@use "sass:math";
+
+
+/*  |> Breakpoints
+——————————————————————————————————————————————————————*/
+
+$bp-sm: 36em;
+$bp-md: 48em;
+$bp-lg: 64rem;
+$bp-xl: 80rem;
+$bp-xxl: 90rem;
+
+
+@function pow($value, $pow: 1) {
+    @return if($pow==0, 1, $value * pow($value, $pow - 1));
+}
+
+@function rounded($value, $precision: 1) {
+    $pow10: pow(10, $precision);
+    @return math.div(round($value * $pow10), $pow10);
+}
+
+/*————————————————————————————————————————————————————*\
+    ●❱ MIXINGS
+\*————————————————————————————————————————————————————*/
+
+@function trim_unit($value) {
+    @return math.div($value, $value * 0 + 1);
+}
+
+@function from_base_px($value) {
+    @return math.div(trim_unit($value), $rem-base-px);
+}
+
+@mixin m_query($width, $type: 'max') {
+    $width_value: trim_unit($width);
+    $width_unit: unit($width);
+    $width_pixels: 0;
+    $width_bp: 0;
+    $rem_value: 16;
+
+    //Detect unit
+    @if $width_unit=='rem'or $width_unit=='em' {
+        $width_pixels: $width_value * $rem_value;
+    }
+
+    @else {
+        $width_pixels: $width_value;
+    }
+
+    @if $type=='max' {
+
+        $width_bp: math.div($width_pixels, $rem_value) * 1em;
+
+        @media screen and (max-width: $width_bp) {
+            @content;
+        }
+
+    }
+
+    @else {
+
+        //@see https://www.w3.org/TR/mediaqueries-4/#mq-min-max
+        $width_bp: math.div($width_pixels + .02, $rem_value) * 1em;
+
+        @media screen and (min-width: $width_bp) {
+            @content;
+        }
+    }
+
+}
+
+@mixin visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+@mixin col($col-num: "") {
+    @if ($col-num==12) {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    @else if ($col-num=="") {
+        flex-basis: 0;
+        flex-grow: 1;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    @else if($col-num=="auto") {
+        flex: 0 0 auto;
+        width: auto;
+        max-width: 100%;
+    }
+
+    @else {
+        flex: 0 0 8.33% * $col-num;
+        max-width: 8.33% * $col-num;
+    }
+}
+
+@mixin select_style {
+    background: white;
+    border: 1px solid var(--c-primary);
+    box-sizing: border-box;
+    border-radius: 2px;
+    padding: 0.5rem 1rem;
+    appearance: none;
+    position: relative;
+    background-image: var(--icon-arrow-down);
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center right 16px;
+}
+
+@mixin hover {
+
+    &:hover,
+    &:focus {
+        @content;
+    }
+}
+
+// Unstyled keeps list items block level, just removes default browser padding and list-style
+@mixin list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+
+
+@mixin get_ratio_container($width, $height) {
+    $ratio: ($height / $width) * 100%;
+
+    position: relative;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: $ratio;
+    }
+
+    >* {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@mixin cover_element() {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

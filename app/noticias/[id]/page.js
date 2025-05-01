@@ -1,5 +1,5 @@
 import Head from 'next/head';
-
+import NewsClient from '@/app/noticias/newsClient';
 async function fetchNoticiaData(id) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`);
   if (!res.ok) {

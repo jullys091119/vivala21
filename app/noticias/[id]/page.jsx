@@ -26,8 +26,6 @@ export async function generateMetadata({ params }) {
       type: 'article',
       url: canonicalUrl,
       images: post.jetpack_featured_media_url ? [post.jetpack_featured_media_url] : [],
-      site_name: 'Viva La Noticia',  // Nombre del sitio
-      'fb:app_id': '2331839577209552',  // Aquí va el app_id de Facebook
     },
     twitter: {
       card: 'summary_large_image',

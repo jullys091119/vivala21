@@ -1,46 +1,57 @@
-// app/noticias/[id]/page.js (Solo servidor)
+// `generateMetadata` para Open Graph y metadatos adicionales
 export async function generateMetadata({ params }) {
   const { id } = params;
+  const noticia = await getNoticia(id);
 
-  // Función para limpiar texto (eliminar etiquetas HTML)
-  const cleanText = (text) => {
-    if (!text) return 'Descripción no disponible';
-    return text.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, '').trim();
-  };
-
-  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`);
-
-  if (!res.ok) {
-    return {
-      title: 'Noticia no encontrada',
-      description: 'La noticia solicitada no está disponible.',
-    };
-  }
-
-  const post = await res.json();
-  const canonicalUrl = `https://vivala21-j4ml.vercel.app/noticias/${id}`;
-  const title = cleanText(post.title?.rendered);
-  const description = cleanText(post.excerpt?.rendered);
-  const image = post.jetpack_featured_media_url || '/default-image-url.jpg';
+  const cleanTitle = cleanText(noticia.title?.rendered);
+  const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
+  const image = noticia.jetpack_featured_media_url || 'https://vivala21-j4ml.vercel.app/default-image.jpg';
 
   return {
-    title,
-    description,
+    title: cleanTitle,
+    description: cleanExcerpt,
     openGraph: {
-      title,
-      description,
+      title: cleanTitle,
+      description: cleanExcerpt,
+      image,
+      url: `https://vivala21-j4ml.vercel.app/noticias/${id}`,
       type: 'article',
-      url: canonicalUrl,
-      images: image ? [{ url: image, secure_url: image }] : [],
     },
     twitter: {
       card: 'summary_large_image',
-      title,
-      description,
+      title: cleanTitle,
+      description: cleanExcerpt,
       image,
     },
-    alternates: {
-      canonical: canonicalUrl,
-    },
   };
+}
+
+// `page.js` con los metadatos Open Graph y Twitter
+export default async function NoticiaPage({ params }) {
+  const { id } = params;
+  const noticia = await getNoticia(id);
+
+  const cleanTitle = cleanText(noticia.title?.rendered);
+  const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
+  const image = noticia.jetpack_featured_media_url || 'https://vivala21-j4ml.vercel.app/default-image.jpg';
+
+  return (
+    <div>
+      <Head>
+        <title>{cleanTitle}</title>
+        <meta name="description" content={cleanExcerpt} />
+        <meta property="og:title" content={cleanTitle} />
+        <meta property="og:description" content={cleanExcerpt} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={`https://vivala21-j4ml.vercel.app/noticias/${id}`} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={cleanTitle} />
+        <meta name="twitter:description" content={cleanExcerpt} />
+        <meta name="twitter:image" content={image} />
+      </Head>
+
+      <NewsClient noticia={noticia} />
+    </div>
+  );
 }

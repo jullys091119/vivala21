@@ -27,14 +27,14 @@ export async function generateMetadata({ params }) {
   const cleanTitle = cleanText(noticia.title?.rendered);
   const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
   const image = noticia.jetpack_featured_media_url || 'https://vivala21-j4ml.vercel.app/default-image.jpg';
-
+  console.log('Image URL:', image); // Verifica la URL de la imagen
   return {
     title: cleanTitle,
     description: cleanExcerpt,
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      images: [image],
+      images: image,
       url: `https://vivala21-j4ml.vercel.app/noticias/${params.id}`,
       type: 'article',
     },

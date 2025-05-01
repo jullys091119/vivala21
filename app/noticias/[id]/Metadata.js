@@ -1,17 +1,3 @@
-// Definición de la función getNoticia
-const getNoticia = async (id) => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/wp/v2/posts/${id}?_embed`);
-    if (!res.ok) {
-      throw new Error('Error al obtener la noticia');
-    }
-    return await res.json();
-  } catch (error) {
-    console.error('Error en getNoticia:', error);
-    return null; // Manejo de error
-  }
-};
-
 // `generateMetadata` para Open Graph y metadatos adicionales
 export async function generateMetadata({ params }) {
   const { id } = params;
@@ -47,7 +33,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      image,
+      image: image, // Asegúrate de usar la URL directa aquí
       url: `https://vivala21-j4ml.vercel.app/noticias/${id}`,
       type: 'article',
     },
@@ -55,7 +41,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: cleanTitle,
       description: cleanExcerpt,
-      image,
+      image: image, // También aquí usa la URL directa
     },
   };
 }

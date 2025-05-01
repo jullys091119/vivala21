@@ -18,11 +18,11 @@ const News = ({ categorySlug }) => {
 
   const fetchNoticias = useCallback(async () => {
     try {
-      const responseTotal = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
+      const responseTotal = await fetch(`${apiUrl}wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
       if (!responseTotal.ok) throw new Error(`Error: ${responseTotal.status}`);
       setTotalNoticias(parseInt(responseTotal.headers.get('X-WP-Total'), 10));
 
-      const response = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=${itemsPorPagina}&page=${paginaActual}`);
+      const response = await fetch(`${apiUrl}wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=${itemsPorPagina}&page=${paginaActual}`);
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data = await response.json();
       setNoticias(data);

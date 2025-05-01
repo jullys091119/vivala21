@@ -10,7 +10,7 @@ const cleanText = (text) => {
 };
 
 // Función para obtener la noticia
-const getNoticia = async (id) => {
+export const getNoticia = async (id) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`);
   return await res.json();
 };
@@ -19,6 +19,8 @@ const getNoticia = async (id) => {
 export async function generateMetadata({ params }) {
   const { id } = params;
   const noticia = await getNoticia(id);
+
+  // console.log('Noticia:', `https://vivala21-j4ml.vercel.app/noticias/${id}`,); // Para depuración
 
   const cleanTitle = cleanText(noticia.title?.rendered);
   const cleanExcerpt = cleanText(noticia.excerpt?.rendered);

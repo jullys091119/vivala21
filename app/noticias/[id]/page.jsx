@@ -1,5 +1,7 @@
 import NewsClient from '../newsClient';
 
+export const dynamic = 'force-dynamic';  // Esto fuerza la renderización dinámica en el servidor
+
 export async function generateMetadata({ params }) {
   const { id } = params;
   const res = await fetch(
@@ -34,7 +36,6 @@ export async function generateMetadata({ params }) {
     canonical: canonicalUrl,
   };
 }
-
 
 export default async function NoticiaPage({ params }) {
   const { id } = params; // ✅ También aquí

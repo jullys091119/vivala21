@@ -34,9 +34,11 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      images: image,
+      images: [image],
       url: `https://vivala21-j4ml.vercel.app/noticias/${params.id}`,
       type: 'article',
+      alt: 'Imagen de la noticia',
+      siteName: 'Viva la 21',
     },
     twitter: {
       card: 'summary_large_image',

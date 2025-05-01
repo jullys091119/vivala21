@@ -12,17 +12,14 @@ export async function generateMetadata({ params }) {
 
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/noticias/${id}`;
 
-  // Limpiar las etiquetas HTML de la descripción
-  const cleanDescription = (text) => text.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
-
-  const description = cleanDescription(post.excerpt?.rendered || '');
-
+  console.log("Generando metadatos para:", canonicalUrl); // 👀 Verifica en la consola
+  console.log("Post:", post); // 👀 Verifica si la respuesta es válida
   return {
     title: post.title?.rendered || 'Noticia',
-    description: cleanDescription(post.excerpt?.rendered || ''),
+    description: post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ') : '',
     openGraph: {
       title: post.title?.rendered,
-      description: cleanDescription(post.excerpt?.rendered || ''),
+      description: post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ') : '',
       type: 'article',
       url: canonicalUrl,
       images: post.jetpack_featured_media_url ? [post.jetpack_featured_media_url] : [],
@@ -30,12 +27,13 @@ export async function generateMetadata({ params }) {
     twitter: {
       card: 'summary_large_image',
       title: post.title?.rendered,
-      description: cleanDescription(post.excerpt?.rendered || ''),
+      description: post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ') : '',
       image: post.jetpack_featured_media_url,
     },
     canonical: canonicalUrl,
   };
 }
+
 
 export default async function NoticiaPage({ params }) {
   const { id } = params; // ✅ También aquí

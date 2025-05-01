@@ -9,9 +9,11 @@ const montserrat = Montserrat({
 
 export const metadata = {
   title: "Viva La Noticia",
-  site_name: 'Viva La Noticia',  // Nombre del sitio
-  'fb:app_id': '2331839577209552',  // Aquí va el app_id de Facebook
   description: "Noticias de Sinaloa y el mundo",
+  'fb:app_id': '2331839577209552',
+  facebook: {
+    appId: '2331839577209552',
+  }
 };
 
 export default function RootLayout({ children }) {

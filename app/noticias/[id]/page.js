@@ -34,6 +34,7 @@ export async function generateMetadata({ params }) {
   // Usamos la URL pública de Vercel para el canonical
   const canonicalUrl = `https://vivala21-j4ml.vercel.app/noticias/${id}`;
 
+
   const cleanText = (text) => {
     if (!text) return 'Descripción no disponible';
     return text.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, '').trim();

@@ -16,6 +16,7 @@ export async function generateMetadata({ params }) {
   const cleanDescription = (text) => text.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
 
   const description = cleanDescription(post.excerpt?.rendered || '');
+
   return {
     title: post.title?.rendered || 'Noticia',
     description: cleanDescription(post.excerpt?.rendered || ''),
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
       url: canonicalUrl,
       images: post.jetpack_featured_media_url ? [post.jetpack_featured_media_url] : [],
       site_name: 'Viva La Noticia',  // Nombre del sitio
-      fb_app_id: '2331839577209552',  // Aquí va el app_id de Facebook
+      'fb:app_id': '2331839577209552',  // Aquí va el app_id de Facebook
     },
     twitter: {
       card: 'summary_large_image',
@@ -36,7 +37,6 @@ export async function generateMetadata({ params }) {
     },
     canonical: canonicalUrl,
   };
-
 }
 
 export default async function NoticiaPage({ params }) {

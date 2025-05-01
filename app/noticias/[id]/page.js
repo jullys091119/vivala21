@@ -14,6 +14,26 @@ export async function generateStaticParams() {
   }));
 }
 
+// Función para limpiar texto (eliminar etiquetas HTML y fragmentos extraños como "+ []")
+const cleanText = (text) => {
+  if (!text) return 'Descripción no disponible';
+
+  // Limpiar etiquetas HTML y entidades de caracteres
+  let cleanedText = text.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, '').trim();
+
+  // Eliminar fragmentos no deseados como "+ []"
+  cleanedText = cleanedText.replace(/\+ \[\]/g, '').replace(/\+/g, '').trim();
+
+  // Evitar cortar el texto antes de tiempo, recortando a un límite de caracteres
+  const maxLength = 160;
+  if (cleanedText.length > maxLength) {
+    cleanedText = cleanedText.substring(0, maxLength) + '...';
+  }
+
+  return cleanedText;
+};
+
+
 // Generación de metadatos para cada noticia
 export async function generateMetadata({ params }) {
   const { id } = params;
@@ -33,18 +53,12 @@ export async function generateMetadata({ params }) {
 
   const post = await res.json();
 
-  // Generación de la URL canónica (usando la URL de Vercel para SEO)
+  // Generación de la URL canónica
   const canonicalUrl = `https://vivala21-j4ml.vercel.app/noticias/${id}`;
 
-  // Función para limpiar texto (eliminar etiquetas HTML)
-  const cleanText = (text) => {
-    if (!text) return 'Descripción no disponible';
-    return text.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, '').trim();
-  };
-
-  // Extraemos el título y la descripción
+  // Limpiar y obtener el título y la descripción
   const title = cleanText(post.title?.rendered);
-  const description = cleanText(post.excerpt?.rendered);
+  const description = cleanText(post.excerpt?.rendered);  // Usamos el excerpt o content si es necesario
   const image = post.jetpack_featured_media_url || 'default-image-url.jpg'; // Imagen por defecto si no hay
 
   return {

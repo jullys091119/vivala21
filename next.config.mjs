@@ -1,8 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // Elimina los remotePatterns si ya no quieres usar imágenes remotas
-    domains: [], // Puedes dejar esto vacío si no estás utilizando imágenes remotas
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'api.vivalanoticia.mx', // Asegúrate de que el hostname de tu API de WordPress esté aquí
+      },
+      {
+        protocol: 'https',
+        hostname: 'secure.gravatar.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+      },
+    ],
   },
 };
 

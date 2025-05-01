@@ -66,7 +66,7 @@ const News = ({ categorySlug }) => {
                       )}
                       <div className={styles.itemContent}>
                         <div className={styles.itemLabels}>
-                          <a href={`/categorias/${categorySlug}`}>{categorySlug.toUpperCase()}</a>
+                          <a href={`/categorias/${categorySlug}`}>{categorySlug}</a>
                         </div>
                         <h3 className={styles.itemTitle}>
                           <a href={`/noticias/${noticia.id}`} dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />

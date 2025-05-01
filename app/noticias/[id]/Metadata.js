@@ -1,4 +1,6 @@
 // `generateMetadata` para Open Graph y metadatos adicionales
+import NewsClient from '../newsClient'; // Suponiendo que 'NewsClient' es un componente React
+import Head from 'next/head';
 export async function generateMetadata({ params }) {
   const { id } = params;
   const noticia = await getNoticia(id);

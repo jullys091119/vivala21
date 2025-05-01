@@ -15,7 +15,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'via.placeholder.com',
       },
-      // Agrega aquí cualquier otro hostname de imágenes externas que utilices
+      // Otros hostnames de imágenes externas que uses
     ],
   },
 };

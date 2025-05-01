@@ -3,6 +3,7 @@ import NewsClient from '../newsClient';
 
 export const dynamic = 'force-dynamic'; // Permite prerender si hay generateStaticParams
 export const revalidate = 0;
+
 export async function generateStaticParams() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts`);
   const posts = await res.json();
@@ -29,7 +30,9 @@ export async function generateMetadata({ params }) {
   }
 
   const post = await res.json();
-  const canonicalUrl = `https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${id}`; // Usamos la URL de la API directamente para el canonical
+
+  // Usamos la URL pública de Vercel para el canonical
+  const canonicalUrl = `https://vivala21-j4ml.vercel.app/noticias/${id}`;
 
   const cleanText = (text) => {
     if (!text) return 'Descripción no disponible';

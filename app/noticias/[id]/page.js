@@ -1,6 +1,6 @@
 // app/noticias/[id]/page.jsx
 import NewsClient from '../newsClient';
-
+import Head from 'next/head';
 export const dynamic = 'force-dynamic'; // Para que siempre se renderice dinámicamente
 export const revalidate = 0;  // No hacer revalidación automática
 

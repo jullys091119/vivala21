@@ -47,13 +47,16 @@ export async function generateMetadata({ params }) {
       description,
       type: 'article',
       url: canonicalUrl,
-      images: image ? [image] : [],
+      images: image ? [{
+        url: image,
+        secure_url: image,
+      }] : [],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [image],
+      image,
     },
     alternates: {
       canonical: canonicalUrl,

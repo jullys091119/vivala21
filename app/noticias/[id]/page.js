@@ -4,16 +4,11 @@ export const dynamic = 'force-dynamic';  // Esto fuerza la renderización dinám
 
 export async function generateMetadata({ params }) {
   const { id } = params;
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`,
-    { cache: 'no-store' }
-  );
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`, { cache: 'no-store' });
   const post = await res.json();
 
   const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/noticias/${id}`;
 
-  console.log("Generando metadatos para:", canonicalUrl); // 👀 Verifica en la consola
-  console.log("Post:", post); // 👀 Verifica si la respuesta es válida
   return {
     title: post.title?.rendered || 'Noticia',
     description: post.excerpt?.rendered ? post.excerpt.rendered.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ') : '',

@@ -1,6 +1,8 @@
 // `generateMetadata` para Open Graph y metadatos adicionales
 export async function generateMetadata({ params }) {
   const { id } = params;
+
+  console.log('ID de la noticia:', id); // Para depuración
   const noticia = await getNoticia(id);
 
   if (!noticia) {
@@ -26,7 +28,7 @@ export async function generateMetadata({ params }) {
   const cleanTitle = cleanText(noticia.title?.rendered);
   const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
   const image = noticia.jetpack_featured_media_url || 'https://vivala21-j4ml.vercel.app/default-image.jpg';
-
+  console.log('Noticia:', noticia.jetpack_featured_media_url, "img"); // Para depuración
   return {
     title: cleanTitle,
     description: cleanExcerpt,

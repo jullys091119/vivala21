@@ -1,30 +1,32 @@
-// app/noticias/[id]/page.js (Página con metadatos y datos en servidor)
+// app/noticias/[id]/page.js
 
-import NewsClient from '../newsClient'; // Suponiendo que 'NewsClient' es un componente React
-import Head from 'next/head';
+import NewsClient from '../newsClient';
 
-// Función para limpiar texto (eliminar etiquetas HTML)
+// Función para limpiar texto
 const cleanText = (text) => {
   if (!text) return 'Descripción no disponible';
   return text.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, '').trim();
 };
 
-// Función para obtener la noticia
-export const getNoticia = async (id) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`);
-  return await res.json();
+// Obtener datos de la API
+const getNoticia = async (id) => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`, {
+    next: { revalidate: 60 }, // (opcional) ISR: revalida cada 60 segundos
+  });
+
+  if (!res.ok) return null;
+
+  return res.json();
 };
 
-// `generateMetadata` en Next.js 14
+// Metadatos SSR (Open Graph + Twitter)
 export async function generateMetadata({ params }) {
-  const { id } = params;
-  const noticia = await getNoticia(id);
-
-  // console.log('Noticia:', `https://vivala21-j4ml.vercel.app/noticias/${id}`,); // Para depuración
+  const noticia = await getNoticia(params.id);
+  if (!noticia) return { title: 'Noticia no encontrada' };
 
   const cleanTitle = cleanText(noticia.title?.rendered);
   const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
-  const image = noticia.jetpack_featured_media_url || 'default-image-url.jpg';
+  const image = noticia.jetpack_featured_media_url || 'https://vivala21-j4ml.vercel.app/default-image.jpg';
 
   return {
     title: cleanTitle,
@@ -32,45 +34,23 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      image,
-      url: `https://vivala21-j4ml.vercel.app/noticias/${id}`,
+      images: [image],
+      url: `https://vivala21-j4ml.vercel.app/noticias/${params.id}`,
       type: 'article',
     },
     twitter: {
       card: 'summary_large_image',
       title: cleanTitle,
       description: cleanExcerpt,
-      image,
+      images: [image],
     },
   };
 }
 
-// `page.js` con datos del servidor (sin usar hooks)
+// Render de la página
 export default async function NoticiaPage({ params }) {
-  const { id } = params;
-  const noticia = await getNoticia(id);
+  const noticia = await getNoticia(params.id);
+  if (!noticia) return <div>No se encontró la noticia.</div>;
 
-  const cleanTitle = cleanText(noticia.title?.rendered);
-  const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
-  const image = noticia.jetpack_featured_media_url || 'default-image-url.jpg';
-
-  return (
-    <div>
-      <Head>
-        <title>{cleanTitle}</title>
-        <meta name="description" content={cleanExcerpt} />
-        <meta property="og:title" content={cleanTitle} />
-        <meta property="og:description" content={cleanExcerpt} />
-        <meta property="og:image" content={image} />
-        <meta property="og:url" content={`https://vivala21-j4ml.vercel.app/noticias/${id}`} />
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={cleanTitle} />
-        <meta name="twitter:description" content={cleanExcerpt} />
-        <meta name="twitter:image" content={image} />
-      </Head>
-
-      <NewsClient noticia={noticia} />
-    </div>
-  );
+  return <NewsClient noticia={noticia} />;
 }

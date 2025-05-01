@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from 'react';
-import Image from 'next/image';  // Importar Image de Next.js
-import styles from '@/app/noticias/[id]/pages.module.css';
+import Image from 'next/image';
+import styles from '@/app/noticias/[id]/pages.module.css'; // Asegúrate de que la ruta sea correcta
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';

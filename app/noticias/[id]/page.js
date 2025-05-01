@@ -1,8 +1,8 @@
 // app/noticias/[id]/page.jsx
 import NewsClient from '../newsClient';
 
-export const dynamic = 'auto'; // Permite prerender si hay generateStaticParams
-
+export const dynamic = 'force-dynamic'; // Permite prerender si hay generateStaticParams
+export const revalidate = 0;
 export async function generateStaticParams() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts`);
   const posts = await res.json();

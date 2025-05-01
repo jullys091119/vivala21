@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "https://www.vivalanoticia.mx/:path*",
+      "destination": "https://vivalanoticia.mx/:path*",
+      "permanent": true
+    }
+  ]
+}

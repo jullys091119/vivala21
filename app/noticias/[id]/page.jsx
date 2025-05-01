@@ -1,28 +1,43 @@
+import NewsClient from '../newsClient';
+
 export async function generateMetadata({ params }) {
-  const { id } = params; // ✅ desestructura primero
+  const { id } = params;
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`,
     { cache: 'no-store' }
   );
   const post = await res.json();
 
+  const canonicalUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/noticias/${id}`;
+
+  // Limpiar las etiquetas HTML de la descripción
+  const cleanDescription = (text) => text.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
+
+  const description = cleanDescription(post.excerpt?.rendered || '');
+
   return {
     title: post.title?.rendered || 'Noticia',
-    description: post.excerpt?.rendered || '',
+    description: description,
     openGraph: {
       title: post.title?.rendered,
-      description: post.excerpt?.rendered,
+      description: description,
       type: 'article',
-      url: `/noticias/${id}`,
-      images: [
-        post.yoast_head_json?.og_image?.[0]?.url || '/default-og.jpg',
-      ],
+      url: canonicalUrl,
+      images: post.jetpack_featured_media_url ? [post.jetpack_featured_media_url] : [],
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title?.rendered,
+      description: description,
+      image: post.jetpack_featured_media_url,
+    },
+    canonical: canonicalUrl,
   };
 }
 
+
 export default async function NoticiaPage({ params }) {
-  const { id } = params; // ✅ también aquí
+  const { id } = params; // ✅ También aquí
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`,
     { cache: 'no-store' }
@@ -30,12 +45,7 @@ export default async function NoticiaPage({ params }) {
 
   if (!res.ok) return <p>No se encontró la noticia</p>;
 
-  const data = await res.json();
+  const noticia = await res.json();
 
-  return (
-    <article>
-      <h1 dangerouslySetInnerHTML={{ __html: data.title.rendered }} />
-      <div dangerouslySetInnerHTML={{ __html: data.content.rendered }} />
-    </article>
-  );
+  return <NewsClient noticia={noticia} />;
 }

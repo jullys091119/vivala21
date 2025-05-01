@@ -16,7 +16,6 @@ export default function NewsClient({ noticia }) {
 
   if (!noticia) return <div>Cargando noticia...</div>;
 
-  const yoast = noticia?.yoast_head_json || {};
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -42,7 +41,9 @@ export default function NewsClient({ noticia }) {
   };
 
   const author = noticia._embedded?.author?.[0];
-  const featuredMedia = noticia._embedded?.['wp:featuredmedia']?.[0];
+
+  // Usa directamente la URL de la imagen destacada de Jetpack
+  const featuredImage = noticia.jetpack_featured_media_url;
 
   return (
     <div className={styles.debugContainer}>
@@ -55,10 +56,10 @@ export default function NewsClient({ noticia }) {
               <span className={styles.metaItem}>{formatDate(noticia.date)}</span>
             </div>
 
-            {featuredMedia?.source_url && (
+            {featuredImage && (
               <div className={styles.featuredImage}>
                 <Image
-                  src={featuredMedia.source_url}
+                  src={featuredImage}
                   alt={noticia.title?.rendered || 'Imagen destacada'}
                   width={1200}
                   height={630}

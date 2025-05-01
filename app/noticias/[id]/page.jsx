@@ -19,22 +19,24 @@ export async function generateMetadata({ params }) {
 
   return {
     title: post.title?.rendered || 'Noticia',
-    description: description,
+    description: cleanDescription(post.excerpt?.rendered || ''),
     openGraph: {
       title: post.title?.rendered,
-      description: description,
+      description: cleanDescription(post.excerpt?.rendered || ''),
       type: 'article',
       url: canonicalUrl,
       images: post.jetpack_featured_media_url ? [post.jetpack_featured_media_url] : [],
+      site_name: 'Viva La Noticia',  // Aquí agregas el nombre del sitio
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title?.rendered,
-      description: description,
+      description: cleanDescription(post.excerpt?.rendered || ''),
       image: post.jetpack_featured_media_url,
     },
     canonical: canonicalUrl,
   };
+
 }
 
 export default async function NoticiaPage({ params }) {

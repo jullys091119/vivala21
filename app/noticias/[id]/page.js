@@ -99,6 +99,18 @@ export default async function NoticiaPage({ params }) {
   // Renderizamos el componente `NewsClient` pasando la noticia obtenida
   return (
     <div>
+      <Head>
+        <meta property="og:title" content={cleanTitle} />
+        <meta property="og:description" content={cleanExcerpt} />
+        <meta property="og:image" content={image} />
+        <meta property="og:url" content={`https://vivala21-j4ml.vercel.app/noticias/${id}`} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={cleanTitle} />
+        <meta name="twitter:description" content={cleanExcerpt} />
+        <meta name="twitter:image" content={image} />
+      </Head>
+
       <NewsClient noticia={noticia} />
     </div>
   );

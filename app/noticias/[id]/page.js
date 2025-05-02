@@ -59,7 +59,5 @@ export default async function NoticiaPage({ params }) {
     cache: 'no-store',
   });
   const noticia = await res.json();
-
-  // Pasamos los datos de la noticia a NewsClient
   return <NewsClient noticia={noticia} />;
 }

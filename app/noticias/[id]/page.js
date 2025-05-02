@@ -61,18 +61,6 @@ export default async function NoticiaPage({ params }) {
   return (
 
     <NewsClient noticia={noticia} />
-    // <main style={{ padding: '1rem' }}>
-    //   <h1 dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
-    //   <Image
-    //     src={noticia.jetpack_featured_media_url || placeholder}
-    //     alt="Imagen de la noticia"
-    //     style={{ maxWidth: '100%', height: 'auto' }}
-    //     width={800}
-    //     height={500}
-    //   />
-    //   <article dangerouslySetInnerHTML={{ __html: noticia.content.rendered }} />
 
-    //   <ShareButton url={`https://vivala21.vercel.app/noticias/${params.id}`} title={noticia.title.rendered} />
-    // </main>
   );
 }

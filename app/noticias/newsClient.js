@@ -14,6 +14,9 @@ export default function NewsClient({ noticia }) {
     setCurrentUrl(process.env.NEXT_PUBLIC_SITE_URL + window.location.pathname);
   }, []);
 
+  // Comprobamos si noticia llega como prop
+  console.log("Noticia recibida en NewsClient:", noticia);
+
   // Si no se recibe noticia, muestra un mensaje de carga.
   if (!noticia) return <div>Cargando noticia...</div>;
 

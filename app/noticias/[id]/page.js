@@ -47,11 +47,14 @@ export async function generateMetadata({ params }) {
   };
 }
 
+
 export default async function NoticiaPage({ params }) {
   const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`, {
     cache: 'no-store',
   });
   const noticia = await res.json();
+
+  const shareUrl = `https://vivala21.vercel.app/noticias/${params.id}`;
 
   return (
     <main style={{ padding: '1rem' }}>
@@ -62,6 +65,24 @@ export default async function NoticiaPage({ params }) {
         style={{ maxWidth: '100%', height: 'auto' }}
       />
       <article dangerouslySetInnerHTML={{ __html: noticia.content.rendered }} />
+
+      <button
+        style={{
+          marginTop: '1rem',
+          backgroundColor: '#1877f2',
+          color: 'white',
+          border: 'none',
+          padding: '10px 20px',
+          borderRadius: '5px',
+          cursor: 'pointer',
+        }}
+        onClick={() => {
+          const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+          window.open(url, '_blank', 'noopener,noreferrer');
+        }}
+      >
+        Compartir en Facebook
+      </button>
     </main>
   );
 }

@@ -50,14 +50,25 @@ export async function generateMetadata({ params }) {
 }
 
 
+// Componente principal de la página
 export default async function NoticiaPage({ params }) {
-  const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`, {
+  const { id } = params;
+
+  // Llamada a la API para obtener la noticia
+  const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${id}`, {
     cache: 'no-store',
   });
   const noticia = await res.json();
+
+  // Si no se encuentra la noticia
+  if (!noticia) {
+    return <div>No se pudo cargar la noticia</div>;
+  }
+
+  // Pasamos la noticia al componente NewsClient
   return (
-
-    <NewsClient noticia={noticia} />
-
+    <main style={{ padding: '1rem' }}>
+      <NewsClient noticia={noticia} />
+    </main>
   );
 }

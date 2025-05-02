@@ -1,7 +1,11 @@
 // app/noticias/[id]/page.js
 export const dynamic = 'force-dynamic';
-
+import placeholder from '@/app/assets/images/logo.png';
 import React from 'react';
+import Image from 'next/image';
+import ShareButton from '@/app/components/ShareButton/ShareButton'; // ajusta el path si es necesario
+// dentro del render:
+
 
 export async function generateMetadata({ params }) {
   const { id } = params;
@@ -59,30 +63,16 @@ export default async function NoticiaPage({ params }) {
   return (
     <main style={{ padding: '1rem' }}>
       <h1 dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
-      <img
-        src={noticia.jetpack_featured_media_url}
+      <Image
+        src={noticia.jetpack_featured_media_url || placeholder}
         alt="Imagen de la noticia"
         style={{ maxWidth: '100%', height: 'auto' }}
+        width={800}
+        height={500}
       />
       <article dangerouslySetInnerHTML={{ __html: noticia.content.rendered }} />
 
-      <button
-        style={{
-          marginTop: '1rem',
-          backgroundColor: '#1877f2',
-          color: 'white',
-          border: 'none',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          cursor: 'pointer',
-        }}
-        onClick={() => {
-          const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
-          window.open(url, '_blank', 'noopener,noreferrer');
-        }}
-      >
-        Compartir en Facebook
-      </button>
+      <ShareButton url={`https://vivala21.vercel.app/noticias/${params.id}`} title={noticia.title.rendered} />
     </main>
   );
 }

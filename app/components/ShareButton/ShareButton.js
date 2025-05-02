@@ -2,16 +2,15 @@
 'use client'; // 👈 Esto lo convierte en un Client Component
 
 import React from 'react';
+import styles from '@/index.module.css';
 
 export default function ShareButton({ url, title }) {
-  const handleShare = () => {
-    const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&t=${encodeURIComponent(title)}`;
-    window.open(shareUrl, '_blank');
+  const copyLink = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      alert('Enlace copiado al portapapeles');
+    });
   };
-
-  return (
-    <button onClick={handleShare} style={{ background: '#1877f2', color: '#fff', padding: '10px', borderRadius: '6px' }}>
-      Compartir en Facebook
-    </button>
-  );
+  <button onClick={copyLink} className={styles.shareIcon}>
+    <Image src="/images/link.svg" alt="Copiar enlace" width={24} height={24} />
+  </button>
 }

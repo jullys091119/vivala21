@@ -2,7 +2,7 @@
 import React from 'react';
 import placeholder from '@/app/assets/images/logo.png';
 import ShareButton from '@/app/components/ShareButton/ShareButton'; // ajusta el path si es necesario
-import NewsClient from '@/app/components/NewsClientWrapper/NewsClientWrapper'
+import NewsClient from '../NewsClientWrapper'
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {

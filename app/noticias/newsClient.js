@@ -14,15 +14,20 @@ export default function NewsClient({ noticia }) {
     setCurrentUrl(process.env.NEXT_PUBLIC_SITE_URL + window.location.pathname);
   }, []);
 
+  // Si no se recibe noticia, muestra un mensaje de carga.
   if (!noticia) return <div>Cargando noticia...</div>;
 
-  const formatDate = (dateString) =>
-    new Date(dateString).toLocaleDateString('es-ES', {
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Fecha no disponible';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     });
+  };
 
+  // Configura los enlaces de compartir en redes sociales
   const shareTitle = encodeURIComponent(noticia?.title?.rendered || '');
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer.php?u=${encodeURIComponent(currentUrl)}`,
@@ -31,6 +36,7 @@ export default function NewsClient({ noticia }) {
     whatsapp: `https://api.whatsapp.com/send?text=${shareTitle}%20${encodeURIComponent(currentUrl)}`,
   };
 
+  // Función para copiar el enlace al portapapeles
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(currentUrl);
@@ -42,8 +48,8 @@ export default function NewsClient({ noticia }) {
 
   const author = noticia._embedded?.author?.[0];
 
-  // Usa directamente la URL de la imagen destacada de Jetpack
-  const featuredImage = noticia.jetpack_featured_media_url;
+  // Usa directamente la URL de la imagen destacada de Jetpack o una imagen por defecto
+  const featuredImage = noticia.jetpack_featured_media_url || '/images/default-image.jpg';
 
   return (
     <div className={styles.debugContainer}>
@@ -97,7 +103,7 @@ export default function NewsClient({ noticia }) {
                   <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
                     <Image
                       src={`/images/${platform}.svg`}
-                      alt={`Share on ${platform}`}
+                      alt={`Compartir en ${platform}`}
                       width={24}
                       height={24}
                       className={styles.shareIcon}
@@ -105,7 +111,7 @@ export default function NewsClient({ noticia }) {
                   </a>
                 ))}
                 <button onClick={copyLink} className={styles.shareIcon}>
-                  <Image src="/images/link.svg" alt="Copy Link" width={24} height={24} />
+                  <Image src="/images/link.svg" alt="Copiar enlace" width={24} height={24} />
                 </button>
               </div>
             </div>

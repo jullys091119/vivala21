@@ -2,6 +2,8 @@ import styles from "@/app/components/NationalCard/NacionalCard.module.css";
 import Image from "next/image";
 
 const NacionalCard = ({ mainNews, articles, loading, error }) => {
+
+  console.log(mainNews, articles, loading, error, "<<<<<<<<NacionalCard>>>>>>");
   if (loading) return <div className={styles.loading}>Cargando...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
 

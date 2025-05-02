@@ -1,40 +1,52 @@
-"use client";
 import { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'next/navigation';  // Usamos useParams en lugar de useRouter
 import styles from '@/app/components/NationalCardv2/NationalCardv2.module.css';
 import Pagination from '@/app/components/Pagination/Pagination';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 
-const News = ({ categorySlug }) => {
+const News = () => {
   const [loading, setLoading] = useState(true);
   const [noticias, setNoticias] = useState([]);
   const [totalNoticias, setTotalNoticias] = useState(0);
   const [paginaActual, setPaginaActual] = useState(1);
-  const itemsPorPagina = 10;
+  const itemsPorPagina = 4;
 
   const apiUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
-  const fetchNoticias = useCallback(async () => {
-    try {
-      const responseTotal = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
-      if (!responseTotal.ok) throw new Error(`Error: ${responseTotal.status}`);
-      setTotalNoticias(parseInt(responseTotal.headers.get('X-WP-Total'), 10));
+  const { categorySlug } = useParams();  // Usamos useParams para obtener el categorySlug
 
-      const response = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=${itemsPorPagina}&page=${paginaActual}`);
+  // Aquí ajustamos el fetch a tu nuevo endpoint
+  const fetchNoticias = useCallback(async () => {
+    if (!categorySlug) return;  // Asegúrate de que categorySlug esté definido antes de hacer la solicitud
+
+    try {
+      // Endpoint actualizado con la categoría y paginación
+      const endpoint = `${apiUrl}wp/v2/posts?_embed&categories=11&per_page=${itemsPorPagina}&offset=${(paginaActual - 1) * itemsPorPagina}`;
+      const response = await fetch(endpoint);
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data = await response.json();
+
+      // Aquí calculamos el total de noticias
+      const totalResponse = await fetch(`${apiUrl}wp/v2/posts?categories=11&_embed`);
+      if (!totalResponse.ok) throw new Error(`Error: ${totalResponse.status}`);
+      const totalData = await totalResponse.json();
+      setTotalNoticias(totalData.length);
+
       setNoticias(data);
     } catch (error) {
       console.error('Error:', error);
     } finally {
       setLoading(false);
     }
-  }, [apiUrl, categorySlug, paginaActual]);
+  }, [apiUrl, categorySlug, paginaActual, itemsPorPagina]);
 
   useEffect(() => {
-    fetchNoticias();
-  }, [fetchNoticias]);
+    if (categorySlug) {
+      fetchNoticias();
+    }
+  }, [categorySlug, fetchNoticias]);
 
   return (
     <div className={styles.debugContainer}>

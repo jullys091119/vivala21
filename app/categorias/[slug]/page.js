@@ -1,6 +1,7 @@
 // app/categorias/[slug]/page.js
 "use client";
 import { useState, useEffect, useCallback } from 'react';
+import { use } from 'react';  // Importar `use` de React para acceder a `params` correctamente
 import styles from './page.module.css';
 import Pagination from '@/app/components/Pagination/Pagination';
 import TabNews from '@/app/components/TabNews/TabNews';
@@ -9,8 +10,7 @@ import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import Image from 'next/image';
 
 const News = ({ params }) => {
-  const { slug } = params; // Accediendo a `params` correctamente
-
+  const slug = use(params).slug;  // Desempaquetamos `params` usando `use()`
   const [loading, setLoading] = useState(true);
   const [noticias, setNoticias] = useState([]);
   const [totalNoticias, setTotalNoticias] = useState(0);

@@ -7,6 +7,11 @@ const montserrat = Montserrat({
   weight: ["400", "700"],
 });
 
+export const metadata = {
+  title: 'Viva La Noticia',
+  description: 'Noticias de Sinaloa y el mundo',
+  fbAppId: '1234567890',
+};
 
 export default function RootLayout({ children }) {
   return (

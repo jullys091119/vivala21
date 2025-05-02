@@ -6,6 +6,7 @@ import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import CommentsBox from '@/app/components/commentsBox/commentsBox';
+import { format } from 'path';
 
 export default function NewsClient({ noticia }) {
   const [currentUrl, setCurrentUrl] = useState('');

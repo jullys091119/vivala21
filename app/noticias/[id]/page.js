@@ -1,21 +1,13 @@
-// Importamos las dependencias necesarias
+// app/noticias/[id]/page.js
 import React from 'react';
-import Image from 'next/image';
-import dynamic from 'next/dynamic';  // Importación dinámica de NewsClient
-import ShareButton from '@/app/components/ShareButton/ShareButton'; // ajusta el path si es necesario
 import placeholder from '@/app/assets/images/logo.png';
-
-// Cargamos NewsClient solo en el cliente
-const NewsClient = dynamic(() => import('../newsClient'), { ssr: false });
+import ShareButton from '@/app/components/ShareButton/ShareButton'; // ajusta el path si es necesario
+import NewsClientWrapper from './NewsClientWrapper';  // Componente que cargará el contenido en el cliente
 
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
   const { id } = params;
-
-  // 🚫 NO hagas console.log directo con objetos grandes en Next.js App Router.
-  // Si necesitas depurar:
-  console.log('ID:', id);
 
   const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${id}`, {
     cache: 'no-store',
@@ -59,5 +51,7 @@ export default async function NoticiaPage({ params }) {
     cache: 'no-store',
   });
   const noticia = await res.json();
-  return <NewsClient noticia={noticia} />;
+
+  // Pasamos los datos de la noticia al componente cliente
+  return <NewsClientWrapper noticia={noticia} />;
 }

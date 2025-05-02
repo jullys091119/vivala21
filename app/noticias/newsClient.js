@@ -10,13 +10,27 @@ import CommentsBox from '@/app/components/commentsBox/commentsBox';
 
 export default function NewsClient({ noticia }) {
   const [currentUrl, setCurrentUrl] = useState('');
+  const [metaData, setMetaData] = useState({
+    title: '',
+    description: '',
+    image: '',
+    url: ''
+  });
 
   useEffect(() => {
+    // Se obtiene la URL actual para la página
     setCurrentUrl(process.env.NEXT_PUBLIC_SITE_URL + window.location.pathname);
-  }, []);
 
-  // Comprobamos si noticia llega como prop
-  console.log("Noticia recibida en NewsClient:", noticia);
+    // Configurar los metadatos de la noticia
+    if (noticia) {
+      setMetaData({
+        title: noticia.title?.rendered || 'Sin título',
+        description: noticia.excerpt?.rendered || 'Sin descripción',
+        image: noticia.jetpack_featured_media_url || '/images/default-image.jpg',
+        url: process.env.NEXT_PUBLIC_SITE_URL + window.location.pathname
+      });
+    }
+  }, [noticia]);
 
   if (!noticia) return <div>Cargando noticia...</div>;
 
@@ -30,15 +44,11 @@ export default function NewsClient({ noticia }) {
     });
   };
 
-  const shareTitle = encodeURIComponent(noticia?.title?.rendered || '');
-  const shareDescription = encodeURIComponent(noticia?.excerpt?.rendered || '');
-  const shareImage = encodeURIComponent(noticia?.jetpack_featured_media_url || '/images/default-image.jpg');
-
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer.php?u=${encodeURIComponent(currentUrl)}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}&title=${shareTitle}`,
-    telegram: `https://telegram.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${shareTitle}`,
-    whatsapp: `https://api.whatsapp.com/send?text=${shareTitle}%20${encodeURIComponent(currentUrl)}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}&title=${metaData.title}`,
+    telegram: `https://telegram.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${metaData.title}`,
+    whatsapp: `https://api.whatsapp.com/send?text=${metaData.title}%20${encodeURIComponent(currentUrl)}`,
   };
 
   const copyLink = async () => {
@@ -57,14 +67,14 @@ export default function NewsClient({ noticia }) {
     <>
       <Head>
         {/* Metadatos Open Graph */}
-        <meta property="og:title" content={noticia.title?.rendered || ''} />
-        <meta property="og:description" content={shareDescription} />
-        <meta property="og:image" content={shareImage} />
-        <meta property="og:url" content={currentUrl} />
+        <meta property="og:title" content={metaData.title} />
+        <meta property="og:description" content={metaData.description} />
+        <meta property="og:image" content={metaData.image} />
+        <meta property="og:url" content={metaData.url} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={noticia.title?.rendered || ''} />
-        <meta name="twitter:description" content={shareDescription} />
-        <meta name="twitter:image" content={shareImage} />
+        <meta name="twitter:title" content={metaData.title} />
+        <meta name="twitter:description" content={metaData.description} />
+        <meta name="twitter:image" content={metaData.image} />
       </Head>
 
       <div className={styles.debugContainer}>

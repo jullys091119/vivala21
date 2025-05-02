@@ -3,6 +3,7 @@
 
 import React from 'react';
 import styles from '@/index.module.css';
+import Image from 'next/image';
 
 export default function ShareButton({ url, title }) {
   const copyLink = () => {

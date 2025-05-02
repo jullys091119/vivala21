@@ -2,12 +2,16 @@
 
 import styles from '../[id]/pages.module.css';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import CommentsBox from '@/app/components/commentsBox/commentsBox';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import CopyLinkButton from '@/app/components/CopyLink/CopyLink';
+
+
+import IconFacebook from '@/app/components/Icons/FacebookIcon';
 
 // Generar rutas estáticas al hacer build
 export async function generateStaticParams() {
@@ -46,7 +50,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      url: `https://vivala21.vercel.app/noticias/${id}`,
+      url: `https://vivala21-j4ml.vercel.app/noticias/${id}`,
       type: 'article',
       siteName: 'Viva la 21',
       images: [{ url: image, alt: cleanTitle }],
@@ -74,7 +78,7 @@ export default async function NoticiaPage({ params }) {
   const author = noticia._embedded?.author?.[0];
   const featuredImage = noticia.jetpack_featured_media_url || '/images/default-image.jpg';
 
-  const shareUrl = `https://vivala21.vercel.app/noticias/${params.id}`;
+  const shareUrl = `https://vivala21-j4ml.vercel.app/noticias/${params.id}`;
   const cleanTitle = noticia.title?.rendered?.replace(/<[^>]*>/g, '') || 'Sin título';
 
   const shareLinks = {
@@ -83,6 +87,7 @@ export default async function NoticiaPage({ params }) {
     telegram: `https://telegram.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${cleanTitle}`,
     whatsapp: `https://api.whatsapp.com/send?text=${cleanTitle}%20${encodeURIComponent(shareUrl)}`,
   };
+
 
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString('es-ES', {
@@ -122,7 +127,7 @@ export default async function NoticiaPage({ params }) {
             <div className={styles.newsContent} dangerouslySetInnerHTML={{ __html: noticia.content?.rendered }} />
 
             <div className={styles.newsAuthor}>
-              {author?.avatar_urls?.[96] && (
+              {/* {author?.avatar_urls?.[96] && (
                 <Image
                   src={author.avatar_urls[96]}
                   alt={author.name || 'Autor'}
@@ -130,7 +135,7 @@ export default async function NoticiaPage({ params }) {
                   width={96}
                   height={96}
                 />
-              )}
+              )} */}
               <p className={styles.newsAuthorName}>
                 AUTOR: <span>{author?.name || 'Nombre no disponible'}</span>
               </p>
@@ -139,17 +144,22 @@ export default async function NoticiaPage({ params }) {
             <div className={styles.socialShare}>
               <p>Comparte la noticia</p>
               <div className={styles.socialShareIcons}>
-                {Object.entries(shareLinks).map(([platform, url]) => (
-                  <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={`/images/${platform}.svg`}
-                      alt={`Share on ${platform}`}
-                      width={24}
-                      height={24}
-                      className={styles.shareIcon}
-                    />
-                  </a>
-                ))}
+                {Object.entries(shareLinks).map(([platform, url]) => {
+                  console.log(url, "url");
+                  return (
+                    <Link key={platform} href={url} target="_blank" rel="noopener noreferrer">
+                      <Image
+                        src={`/svg/${platform}.svg`}
+                        alt={`Share on ${platform}`}
+                        width={24}
+                        height={24}
+                        className={styles.shareIcon}
+                      />
+                    </Link>
+
+                  );
+                })}
+
                 <CopyLinkButton shareUrl={shareUrl} />
               </div>
             </div>

@@ -2,8 +2,8 @@
 import React from 'react';
 import Link from 'next/link';
 import styles from '@/app/components/cardMd/cardMd.module.css';
-import IconsDate from '@/app/assets/svg/icon-date.svg';
-import AuthorIcon from '@/app/assets/svg/icon-note.svg';
+import IconsDate from '@/public/svg/icon-date.svg';
+import AuthorIcon from '@/public/svg/icon-note.svg';
 import Image from 'next/image';
 
 const CardMd = ({ post, classCss = '' }) => {

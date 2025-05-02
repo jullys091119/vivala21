@@ -24,15 +24,14 @@ export async function generateMetadata({ params }) {
   const cleanTitle = cleanText(noticia.title?.rendered);
   const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
   const image = noticia.jetpack_featured_media_url || 'https://vivalanoticia.mx/default-image.jpg'; // Actualiza la URL a tu dominio
-
   return {
     title: cleanTitle,
     description: cleanExcerpt,
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      images: [image],
-      url: `https://vivalanoticia.mx/preview/${params.id}`, // URL del previsualizador
+      images: [image], // usa URL directa, no _next/image
+      url: `https://vivala21.vercel.app/noticias/${params.id}`,
       type: 'article',
       alt: 'Imagen de la noticia',
       siteName: 'Viva la 21',
@@ -41,7 +40,7 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: cleanTitle,
       description: cleanExcerpt,
-      images: [image],
+      images: [image], // igual aquí
     },
   };
 }

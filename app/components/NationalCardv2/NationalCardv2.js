@@ -1,11 +1,10 @@
-'use client';
+"use client";
 import { useState, useEffect, useCallback } from 'react';
 import styles from '@/app/components/NationalCardv2/NationalCardv2.module.css';
 import Pagination from '@/app/components/Pagination/Pagination';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
-import Image from 'next/image';  // Importa el componente Image de Next.js
 
 const News = ({ categorySlug }) => {
   const [loading, setLoading] = useState(true);
@@ -18,11 +17,11 @@ const News = ({ categorySlug }) => {
 
   const fetchNoticias = useCallback(async () => {
     try {
-      const responseTotal = await fetch(`${apiUrl}wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
+      const responseTotal = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=1`);
       if (!responseTotal.ok) throw new Error(`Error: ${responseTotal.status}`);
       setTotalNoticias(parseInt(responseTotal.headers.get('X-WP-Total'), 10));
 
-      const response = await fetch(`${apiUrl}wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=${itemsPorPagina}&page=${paginaActual}`);
+      const response = await fetch(`${apiUrl}/wp/v2/posts?categories_slug=${categorySlug}&_embed&per_page=${itemsPorPagina}&page=${paginaActual}`);
       if (!response.ok) throw new Error(`Error: ${response.status}`);
       const data = await response.json();
       setNoticias(data);
@@ -53,20 +52,12 @@ const News = ({ categorySlug }) => {
                     <div className={styles.itemInner}>
                       {noticia._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
                         <a href={`/noticias/${noticia.id}`} className={styles.itemThumbnail}>
-                          {/* Reemplazamos <img> con <Image> */}
-                          <Image
-                            src={noticia._embedded['wp:featuredmedia'][0].source_url}
-                            alt={noticia.title.rendered}
-                            width={500}  // Ajusta el tamaño según sea necesario
-                            height={300} // Ajusta el tamaño según sea necesario
-                            className={styles.cardImage}
-                            loading="lazy"  // Activamos el lazy loading
-                          />
+                          <img src={noticia._embedded['wp:featuredmedia'][0].source_url} alt={noticia.title.rendered} />
                         </a>
                       )}
                       <div className={styles.itemContent}>
                         <div className={styles.itemLabels}>
-                          <a href={`/categorias/${categorySlug}`}>{categorySlug}</a>
+                          <a href={`/categorias/${categorySlug}`}>{categorySlug.toUpperCase()}</a>
                         </div>
                         <h3 className={styles.itemTitle}>
                           <a href={`/noticias/${noticia.id}`} dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />

@@ -1,12 +1,14 @@
-// app/noticias/[id]/page.js
-export const dynamic = 'force-dynamic';
-import placeholder from '@/app/assets/images/logo.png';
+// Importamos las dependencias necesarias
 import React from 'react';
 import Image from 'next/image';
-import NewsClient from '../newsClient';
+import dynamic from 'next/dynamic';  // Importación dinámica de NewsClient
 import ShareButton from '@/app/components/ShareButton/ShareButton'; // ajusta el path si es necesario
-// dentro del render:
+import placeholder from '@/app/assets/images/logo.png';
 
+// Cargamos NewsClient solo en el cliente
+const NewsClient = dynamic(() => import('../newsClient'), { ssr: false });
+
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
   const { id } = params;
@@ -52,30 +54,12 @@ export async function generateMetadata({ params }) {
   };
 }
 
-
 export default async function NoticiaPage({ params }) {
   const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`, {
     cache: 'no-store',
   });
   const noticia = await res.json();
 
-  const shareUrl = `https://vivala21.vercel.app/noticias/${params.id}`;
-
-  return (
-
-    <NewsClient noticia={noticia} />
-    // <main style={{ padding: '1rem' }}>
-    //   <h1 dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
-    //   <Image
-    //     src={noticia.jetpack_featured_media_url || placeholder}
-    //     alt="Imagen de la noticia"
-    //     style={{ maxWidth: '100%', height: 'auto' }}
-    //     width={800}
-    //     height={500}
-    //   />
-    //   <article dangerouslySetInnerHTML={{ __html: noticia.content.rendered }} />
-
-    //   <ShareButton url={`https://vivala21.vercel.app/noticias/${params.id}`} title={noticia.title.rendered} />
-    // </main>
-  );
+  // Pasamos los datos de la noticia a NewsClient
+  return <NewsClient noticia={noticia} />;
 }

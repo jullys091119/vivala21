@@ -1,24 +1,11 @@
-// app/preview/[id]/page.js
+// app/noticias/[id]/page.js
 
-import NewsClient from '../newsClient';
-
-// Función para limpiar texto
-const cleanText = (text) => {
-  if (!text) return 'Descripción no disponible';
-  return text.replace(/<[^>]*>/g, '').replace(/&[#\w]+;/g, '').trim();
-};
-
-// Obtener datos de la API
-const getNoticia = async (id) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/posts/${id}?_embed`);
-  if (!res.ok) return null;
-
-  return res.json();
-};
-
+import React from 'react';
 
 export async function generateMetadata({ params }) {
-  const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`);
+  const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`, {
+    cache: 'no-store',
+  });
   const noticia = await res.json();
 
   const cleanTitle = noticia.title?.rendered?.replace(/<[^>]*>/g, '') || 'Sin título';
@@ -36,7 +23,7 @@ export async function generateMetadata({ params }) {
       siteName: 'Viva la 21',
       images: [
         {
-          url: image, // <== aquí debe ir la URL directa del WordPress
+          url: image,
           alt: cleanTitle,
         },
       ],
@@ -45,16 +32,26 @@ export async function generateMetadata({ params }) {
       card: 'summary_large_image',
       title: cleanTitle,
       description: cleanExcerpt,
-      images: [image], // también URL directa
+      images: [image],
     },
   };
 }
 
+export default async function NoticiaPage({ params }) {
+  const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`, {
+    cache: 'no-store',
+  });
+  const noticia = await res.json();
 
-// Render de la página
-export default async function PreviewPage({ params }) {
-  const noticia = await getNoticia(params.id);
-  if (!noticia) return <div>No se encontró la noticia.</div>;
-
-  return <NewsClient noticia={noticia} />;
+  return (
+    <main style={{ padding: '1rem' }}>
+      <h1 dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
+      <img
+        src={noticia.jetpack_featured_media_url}
+        alt="Imagen de la noticia"
+        style={{ maxWidth: '100%', height: 'auto' }}
+      />
+      <article dangerouslySetInnerHTML={{ __html: noticia.content.rendered }} />
+    </main>
+  );
 }

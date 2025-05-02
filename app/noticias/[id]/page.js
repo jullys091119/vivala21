@@ -1,5 +1,4 @@
 // app/noticias/[id]/page.js
-export const dynamic = 'force-dynamic';
 
 import placeholder from '@/app/assets/images/logo.png';
 import React from 'react';
@@ -12,11 +11,19 @@ import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
+import Link from 'next/link';
 
-function formatDate(dateString) {
-  return format(new Date(dateString), "d 'de' MMMM yyyy", { locale: es });
+// ✅ Genera páginas estáticas para los primeros 10 posts
+export async function generateStaticParams() {
+  const res = await fetch('https://api.vivalanoticia.mx/wp-json/wp/v2/posts?per_page=10');
+  const posts = await res.json();
+
+  return posts.map((post) => ({
+    id: post.id.toString(),
+  }));
 }
 
+// ✅ Genera metadatos para Open Graph, Twitter, etc.
 export async function generateMetadata({ params }) {
   const { id } = params;
 
@@ -57,6 +64,11 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function formatDate(dateString) {
+  return format(new Date(dateString), "d 'de' MMMM yyyy", { locale: es });
+}
+
+// ✅ Página principal
 export default async function NoticiaPage({ params }) {
   const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}?_embed`, {
     cache: 'no-store',
@@ -67,9 +79,9 @@ export default async function NoticiaPage({ params }) {
   }
 
   const noticia = await res.json();
-  console.log(noticia);
   const author = noticia._embedded?.author?.[0];
   const featuredImage = noticia.jetpack_featured_media_url || '/images/default-image.jpg';
+
 
   const shareUrl = `https://vivala21.vercel.app/noticias/${params.id}`;
   const cleanTitle = noticia.title?.rendered?.replace(/<[^>]*>/g, '') || 'Sin título';
@@ -80,8 +92,6 @@ export default async function NoticiaPage({ params }) {
     telegram: `https://telegram.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${cleanTitle}`,
     whatsapp: `https://api.whatsapp.com/send?text=${cleanTitle}%20${encodeURIComponent(shareUrl)}`,
   };
-
-
 
   return (
     <div className={styles.debugContainer}>
@@ -132,7 +142,7 @@ export default async function NoticiaPage({ params }) {
               <p>Comparte la noticia</p>
               <div className={styles.socialShareIcons}>
                 {Object.entries(shareLinks).map(([platform, url]) => (
-                  <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
+                  <Link key={platform} href={url} target="_blank" rel="noopener noreferrer">
                     <Image
                       src={`/images/${platform}.svg`}
                       alt={`Compartir en ${platform}`}
@@ -140,9 +150,9 @@ export default async function NoticiaPage({ params }) {
                       height={24}
                       className={styles.shareIcon}
                     />
-                  </a>
+                  </Link>
                 ))}
-                <ShareButton />
+                <ShareButton url={shareUrl} />
               </div>
             </div>
 

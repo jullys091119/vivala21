@@ -55,9 +55,6 @@ export default async function NoticiaPage({ params }) {
     cache: 'no-store',
   });
   const noticia = await res.json();
-
-  const shareUrl = `https://vivala21.vercel.app/noticias/${params.id}`;
-
   return (
 
     <NewsClient noticia={noticia} />

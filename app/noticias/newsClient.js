@@ -1,7 +1,8 @@
 "use client";
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import styles from '@/app/noticias/[id]/pages.module.css'; // Asegúrate de que la ruta sea correcta
+import Head from 'next/head'; // Importamos Head para manejar los metadatos
+import styles from '@/app/noticias/[id]/pages.module.css';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
@@ -17,7 +18,6 @@ export default function NewsClient({ noticia }) {
   // Comprobamos si noticia llega como prop
   console.log("Noticia recibida en NewsClient:", noticia);
 
-  // Si no se recibe noticia, muestra un mensaje de carga.
   if (!noticia) return <div>Cargando noticia...</div>;
 
   const formatDate = (dateString) => {
@@ -30,8 +30,10 @@ export default function NewsClient({ noticia }) {
     });
   };
 
-  // Configura los enlaces de compartir en redes sociales
   const shareTitle = encodeURIComponent(noticia?.title?.rendered || '');
+  const shareDescription = encodeURIComponent(noticia?.excerpt?.rendered || '');
+  const shareImage = encodeURIComponent(noticia?.jetpack_featured_media_url || '/images/default-image.jpg');
+
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer.php?u=${encodeURIComponent(currentUrl)}`,
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}&title=${shareTitle}`,
@@ -39,7 +41,6 @@ export default function NewsClient({ noticia }) {
     whatsapp: `https://api.whatsapp.com/send?text=${shareTitle}%20${encodeURIComponent(currentUrl)}`,
   };
 
-  // Función para copiar el enlace al portapapeles
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(currentUrl);
@@ -50,85 +51,97 @@ export default function NewsClient({ noticia }) {
   };
 
   const author = noticia._embedded?.author?.[0];
-
-  // Usa directamente la URL de la imagen destacada de Jetpack o una imagen por defecto
   const featuredImage = noticia.jetpack_featured_media_url || '/images/default-image.jpg';
 
   return (
-    <div className={styles.debugContainer}>
-      <div className={styles.layoutContainer}>
-        <div className={styles.mainContent}>
-          <div className={styles.singleNewsContainer}>
-            <h1 className={styles.newsTitle} dangerouslySetInnerHTML={{ __html: noticia.title?.rendered }} />
-            <div className={styles.metaItems}>
-              <span className={styles.metaItem}>{author?.name || 'Autor no disponible'}</span>
-              <span className={styles.metaItem}>{formatDate(noticia.date)}</span>
-            </div>
+    <>
+      <Head>
+        {/* Metadatos Open Graph */}
+        <meta property="og:title" content={noticia.title?.rendered || ''} />
+        <meta property="og:description" content={shareDescription} />
+        <meta property="og:image" content={shareImage} />
+        <meta property="og:url" content={currentUrl} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={noticia.title?.rendered || ''} />
+        <meta name="twitter:description" content={shareDescription} />
+        <meta name="twitter:image" content={shareImage} />
+      </Head>
 
-            {featuredImage && (
-              <div className={styles.featuredImage}>
-                <Image
-                  src={featuredImage}
-                  alt={noticia.title?.rendered || 'Imagen destacada'}
-                  width={1200}
-                  height={630}
-                  layout="responsive"
-                />
+      <div className={styles.debugContainer}>
+        <div className={styles.layoutContainer}>
+          <div className={styles.mainContent}>
+            <div className={styles.singleNewsContainer}>
+              <h1 className={styles.newsTitle} dangerouslySetInnerHTML={{ __html: noticia.title?.rendered }} />
+              <div className={styles.metaItems}>
+                <span className={styles.metaItem}>{author?.name || 'Autor no disponible'}</span>
+                <span className={styles.metaItem}>{formatDate(noticia.date)}</span>
               </div>
-            )}
 
-            <div className={styles.newsReader}>
-              <button className={styles.listenButton}>Escuchar la entrada</button>
-              <div className={styles.shortDescription} dangerouslySetInnerHTML={{ __html: noticia.excerpt?.rendered }} />
-            </div>
-
-            <div className={styles.newsContent} dangerouslySetInnerHTML={{ __html: noticia.content?.rendered }} />
-
-            <div className={styles.newsAuthor}>
-              {author?.avatar_urls?.[96] && (
-                <Image
-                  src={author.avatar_urls[96]}
-                  alt={author.name || 'Autor'}
-                  className={styles.authorImage}
-                  width={96}
-                  height={96}
-                />
+              {featuredImage && (
+                <div className={styles.featuredImage}>
+                  <Image
+                    src={featuredImage}
+                    alt={noticia.title?.rendered || 'Imagen destacada'}
+                    width={1200}
+                    height={630}
+                    layout="responsive"
+                  />
+                </div>
               )}
-              <p className={styles.newsAuthorName}>
-                AUTOR: <span>{author?.name || 'Nombre no disponible'}</span>
-              </p>
-            </div>
 
-            <div className={styles.socialShare}>
-              <p>Comparte la noticia</p>
-              <div className={styles.socialShareIcons}>
-                {Object.entries(shareLinks).map(([platform, url]) => (
-                  <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
-                    <Image
-                      src={`/images/${platform}.svg`}
-                      alt={`Compartir en ${platform}`}
-                      width={24}
-                      height={24}
-                      className={styles.shareIcon}
-                    />
-                  </a>
-                ))}
-                <button onClick={copyLink} className={styles.shareIcon}>
-                  <Image src="/images/link.svg" alt="Copiar enlace" width={24} height={24} />
-                </button>
+              <div className={styles.newsReader}>
+                <button className={styles.listenButton}>Escuchar la entrada</button>
+                <div className={styles.shortDescription} dangerouslySetInnerHTML={{ __html: noticia.excerpt?.rendered }} />
               </div>
-            </div>
 
-            <CommentsBox postId={noticia.id} />
+              <div className={styles.newsContent} dangerouslySetInnerHTML={{ __html: noticia.content?.rendered }} />
+
+              <div className={styles.newsAuthor}>
+                {author?.avatar_urls?.[96] && (
+                  <Image
+                    src={author.avatar_urls[96]}
+                    alt={author.name || 'Autor'}
+                    className={styles.authorImage}
+                    width={96}
+                    height={96}
+                  />
+                )}
+                <p className={styles.newsAuthorName}>
+                  AUTOR: <span>{author?.name || 'Nombre no disponible'}</span>
+                </p>
+              </div>
+
+              <div className={styles.socialShare}>
+                <p>Comparte la noticia</p>
+                <div className={styles.socialShareIcons}>
+                  {Object.entries(shareLinks).map(([platform, url]) => (
+                    <a key={platform} href={url} target="_blank" rel="noopener noreferrer">
+                      <Image
+                        src={`/images/${platform}.svg`}
+                        alt={`Compartir en ${platform}`}
+                        width={24}
+                        height={24}
+                        className={styles.shareIcon}
+                      />
+                    </a>
+                  ))}
+                  <button onClick={copyLink} className={styles.shareIcon}>
+                    <Image src="/images/link.svg" alt="Copiar enlace" width={24} height={24} />
+                  </button>
+                </div>
+              </div>
+
+              <CommentsBox postId={noticia.id} />
+            </div>
+          </div>
+
+          <div className={styles.sidebarContent}>
+            <TabNews />
+            <LiveNews />
+            <SubscribeCard />
           </div>
         </div>
-
-        <div className={styles.sidebarContent}>
-          <TabNews />
-          <LiveNews />
-          <SubscribeCard />
-        </div>
       </div>
-    </div>
+    </>
   );
 }

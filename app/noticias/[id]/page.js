@@ -2,8 +2,7 @@
 import React from 'react';
 import placeholder from '@/app/assets/images/logo.png';
 import ShareButton from '@/app/components/ShareButton/ShareButton'; // ajusta el path si es necesario
-import NewsClientWrapper from './NewsClientWrapper';  // Componente que cargará el contenido en el cliente
-
+import NewsClient from '@/app/components/NewsClientWrapper/NewsClientWrapper'
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
@@ -53,5 +52,5 @@ export default async function NoticiaPage({ params }) {
   const noticia = await res.json();
 
   // Pasamos los datos de la noticia al componente cliente
-  return <NewsClientWrapper noticia={noticia} />;
+  return <NewsClient noticia={noticia} />;
 }

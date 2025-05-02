@@ -16,34 +16,40 @@ const getNoticia = async (id) => {
   return res.json();
 };
 
-// Metadatos específicos para compartir
-export async function generateMetadata({ params }) {
-  const noticia = await getNoticia(params.id);
-  if (!noticia) return { title: 'Noticia no encontrada' };
 
-  const cleanTitle = cleanText(noticia.title?.rendered);
-  const cleanExcerpt = cleanText(noticia.excerpt?.rendered);
-  const image = noticia.jetpack_featured_media_url || 'https://vivalanoticia.mx/default-image.jpg'; // Actualiza la URL a tu dominio
+export async function generateMetadata({ params }) {
+  const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}`);
+  const noticia = await res.json();
+
+  const cleanTitle = noticia.title?.rendered?.replace(/<[^>]*>/g, '') || 'Sin título';
+  const cleanExcerpt = noticia.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Sin descripción';
+  const image = noticia.jetpack_featured_media_url || 'https://vivala21.vercel.app/default.jpg';
+
   return {
     title: cleanTitle,
     description: cleanExcerpt,
     openGraph: {
       title: cleanTitle,
       description: cleanExcerpt,
-      images: [image], // usa URL directa, no _next/image
       url: `https://vivala21.vercel.app/noticias/${params.id}`,
       type: 'article',
-      alt: 'Imagen de la noticia',
       siteName: 'Viva la 21',
+      images: [
+        {
+          url: image, // <== aquí debe ir la URL directa del WordPress
+          alt: cleanTitle,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: cleanTitle,
       description: cleanExcerpt,
-      images: [image], // igual aquí
+      images: [image], // también URL directa
     },
   };
 }
+
 
 // Render de la página
 export default async function PreviewPage({ params }) {

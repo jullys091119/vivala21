@@ -61,10 +61,10 @@ const NewsCarousel = () => {
     <div>
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
-        // spaceBetween={30}
-        // slidesPerView={1}
-        // pagination={{ clickable: true }}
-        // autoplay={{ delay: 5000 }}
+        spaceBetween={30}
+        slidesPerView={1}
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000 }}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
       >
         {slides.map((slide) => (

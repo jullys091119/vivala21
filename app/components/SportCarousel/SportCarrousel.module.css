@@ -24,8 +24,8 @@
   display: block;
 }
 
-:global(.deportesCarousel .swiper-button-next),
-:global(.deportesCarousel .swiper-button-prev) {
+.deportesCarousel .swiper-button-next,
+.deportesCarousel .swiper-button-prev {
   width: 20px !important;
   height: 20px !important;
   background-color: transparent !important;
@@ -38,8 +38,9 @@
   align-items: center !important;
   top: 20% !important;
   transform: translateY(-50%) !important;
-  z-index: 10;
+  z-index: 10 !important;
 }
+
 
 .cardImageOverlay {
   position: absolute;

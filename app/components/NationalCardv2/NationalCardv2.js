@@ -15,6 +15,7 @@ export default function NationalNews({ apiUrl }) {
   const [articles, setArticles] = useState([]);
   const baseUrl = process.env.NEXT_PUBLIC_WORDPRESS_API_URL;
 
+  // UseEffect para cargar las noticias
   useEffect(() => {
     async function fetchNews() {
       try {
@@ -32,17 +33,19 @@ export default function NationalNews({ apiUrl }) {
       }
     }
     fetchNews();
-  }, [apiUrl]);
+  }, [baseUrl]); // Aseguramos que baseUrl sea la dependencia, ya que no depende de `apiUrl`
 
+  // Función para eliminar las etiquetas HTML
   const stripHtml = (html) => {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = html;
     return tempDiv.textContent || tempDiv.innerText || '';
   };
 
+  // Función para limitar la longitud del título
   const limitTitle = (title) => {
     if (!title) return '';
-    return title.length > 60 ? title.substring(0, 150) + '...' : title;
+    return title.length > 60 ? title.substring(0, 60) + '...' : title;
   };
 
   // Función para formatear la fecha
@@ -51,7 +54,10 @@ export default function NationalNews({ apiUrl }) {
     return new Date(date).toLocaleDateString('es-ES', options);
   };
 
+  // Si está cargando, mostramos el texto de carga
   if (loading) return <div className={styles.loading}>Cargando...</div>;
+
+  // Si hay error, mostramos el mensaje de error
   if (error) return <div className={styles.error}>{error}</div>;
 
   return (

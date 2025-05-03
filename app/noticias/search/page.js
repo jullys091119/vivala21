@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { Suspense, useState, useEffect, useCallback } from 'react';  // Importa Suspense
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import styles from '@/app/noticias/search/search.module.css';
@@ -104,7 +104,7 @@ const SearchComponent = () => {
               </div>
             ) : (
               <div className={styles.errorMessage}>
-                No se encontraron resultados para "{searchQuery}".
+                No se encontraron resultados para &quot;{searchQuery}&quot;.
               </div>
             )}
           </div>
@@ -127,4 +127,11 @@ const SearchComponent = () => {
   );
 };
 
-export default SearchComponent;
+// Envolver SearchComponent en Suspense
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading search...</div>}>
+      <SearchComponent />
+    </Suspense>
+  );
+}

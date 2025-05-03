@@ -1,19 +1,15 @@
-// app/noticias/[id]/page.js
-
 import styles from '../[id]/pages.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-
 import CommentsBox from '@/app/components/commentsBox/commentsBox';
 import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import CopyLinkButton from '@/app/components/CopyLink/CopyLink';
+import PromoCards from '@/app/components/PromoCards/PromoCards';
+import Header from '@/app/components/Header/Header';
+import SearchComponent from '../search/page';
 
-
-import IconFacebook from '@/app/components/Icons/FacebookIcon';
-
-// Generar rutas estáticas al hacer build
 export async function generateStaticParams() {
   const res = await fetch('https://api.vivalanoticia.mx/wp-json/wp/v2/posts?per_page=100');
   const posts = await res.json();
@@ -23,13 +19,13 @@ export async function generateStaticParams() {
   }));
 }
 
-// Generar metadatos dinámicos
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params, searchParams }) {
   const { id } = params;
-
   const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${id}?_embed`, {
     next: { revalidate: 3600 },
   });
+
+  const query = searchParams?.s || '';
 
   if (!res.ok) {
     return {
@@ -39,7 +35,6 @@ export async function generateMetadata({ params }) {
   }
 
   const noticia = await res.json();
-
   const cleanTitle = noticia.title?.rendered?.replace(/<[^>]*>/g, '') || 'Sin título';
   const cleanExcerpt = noticia.excerpt?.rendered?.replace(/<[^>]*>/g, '') || 'Sin descripción';
   const image = noticia.jetpack_featured_media_url || 'https://vivala21.vercel.app/default.jpg';
@@ -64,8 +59,10 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// Página de detalle de noticia
-export default async function NoticiaPage({ params }) {
+export default async function NoticiaPage({ params, searchParams }) {
+  const searchQuery = searchParams.s || '';
+  console.log('Parámetro de búsqueda:', searchQuery);
+
   const res = await fetch(`https://api.vivalanoticia.mx/wp-json/wp/v2/posts/${params.id}?_embed`, {
     next: { revalidate: 3600 },
   });
@@ -88,7 +85,6 @@ export default async function NoticiaPage({ params }) {
     whatsapp: `https://api.whatsapp.com/send?text=${cleanTitle}%20${encodeURIComponent(shareUrl)}`,
   };
 
-
   const formatDate = (dateString) =>
     new Date(dateString).toLocaleDateString('es-ES', {
       year: 'numeric',
@@ -97,83 +93,78 @@ export default async function NoticiaPage({ params }) {
     });
 
   return (
-    <div className={styles.debugContainer}>
-      <div className={styles.layoutContainer}>
-        <div className={styles.mainContent}>
-          <div className={styles.singleNewsContainer}>
-            <h1 className={styles.newsTitle} dangerouslySetInnerHTML={{ __html: noticia.title?.rendered }} />
-            <div className={styles.metaItems}>
-              <span className={styles.metaItem}>{author?.name || 'Autor no disponible'}</span>
-              <span className={styles.metaItem}>{formatDate(noticia.date)}</span>
-            </div>
-
-            {featuredImage && (
-              <div className={styles.featuredImage}>
-                <Image
-                  src={featuredImage}
-                  alt={noticia.title?.rendered || 'Imagen destacada'}
-                  width={1200}
-                  height={630}
-                  layout="responsive"
-                />
+    <>
+      <Header />
+      <div className={styles.debugContainer}>
+        <div className={styles.layoutContainer}>
+          {/* Contenido principal */}
+          <div className={styles.mainContent}>
+            <div className={styles.singleNewsContainer}>
+              <h1 className={styles.newsTitle} dangerouslySetInnerHTML={{ __html: noticia.title?.rendered }} />
+              <div className={styles.metaItems}>
+                <span className={styles.metaItem}>{author?.name || 'Autor no disponible'}</span>
+                <span className={styles.metaItem}>{formatDate(noticia.date)}</span>
               </div>
-            )}
 
-            <div className={styles.newsReader}>
-              <button className={styles.listenButton}>Escuchar la entrada</button>
-              <div className={styles.shortDescription} dangerouslySetInnerHTML={{ __html: noticia.excerpt?.rendered }} />
-            </div>
+              {featuredImage && (
+                <div className={styles.featuredImage}>
+                  <Image
+                    src={featuredImage}
+                    alt={noticia.title?.rendered || 'Imagen destacada'}
+                    width={1200}
+                    height={630}
+                    layout="responsive"
+                  />
+                </div>
+              )}
 
-            <div className={styles.newsContent} dangerouslySetInnerHTML={{ __html: noticia.content?.rendered }} />
+              <div className={styles.newsReader}>
+                <button className={styles.listenButton}>Escuchar la entrada</button>
+                <div className={styles.shortDescription} dangerouslySetInnerHTML={{ __html: noticia.excerpt?.rendered }} />
+              </div>
 
-            <div className={styles.newsAuthor}>
-              {/* {author?.avatar_urls?.[96] && (
-                <Image
-                  src={author.avatar_urls[96]}
-                  alt={author.name || 'Autor'}
-                  className={styles.authorImage}
-                  width={96}
-                  height={96}
-                />
-              )} */}
-              <p className={styles.newsAuthorName}>
-                AUTOR: <span>{author?.name || 'Nombre no disponible'}</span>
-              </p>
-            </div>
+              <div className={styles.newsContent} dangerouslySetInnerHTML={{ __html: noticia.content?.rendered }} />
 
-            <div className={styles.socialShare}>
-              <p>Comparte la noticia</p>
-              <div className={styles.socialShareIcons}>
-                {Object.entries(shareLinks).map(([platform, url]) => {
-                  console.log(url, "url");
-                  return (
+              <div className={styles.newsAuthor}>
+                <p className={styles.newsAuthorName}>
+                  AUTOR: <span>{author?.name || 'Nombre no disponible'}</span>
+                </p>
+              </div>
+
+              <div className={styles.socialShare}>
+                <p>Comparte la noticia</p>
+                <div className={styles.socialShareIcons}>
+                  {Object.entries(shareLinks).map(([platform, url]) => (
                     <Link key={platform} href={url} target="_blank" rel="noopener noreferrer">
                       <Image
                         src={`/svg/${platform}.svg`}
-                        alt={`Share on ${platform}`}
+                        alt={`Compartir en ${platform}`}
                         width={24}
                         height={24}
                         className={styles.shareIcon}
                       />
                     </Link>
-
-                  );
-                })}
-
-                <CopyLinkButton shareUrl={shareUrl} />
+                  ))}
+                  <CopyLinkButton shareUrl={shareUrl} />
+                </div>
               </div>
-            </div>
 
-            <CommentsBox postId={noticia.id} />
+              <CommentsBox postId={noticia.id} />
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className={styles.sidebarContent}>
+            <TabNews />
+            <LiveNews />
+            <SubscribeCard />
+            <PromoCards />
+            <SearchComponent />
+
+
           </div>
         </div>
-
-        <div className={styles.sidebarContent}>
-          <TabNews />
-          <LiveNews />
-          <SubscribeCard />
-        </div>
       </div>
-    </div>
+    </>
   );
 }

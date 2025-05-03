@@ -1,6 +1,7 @@
+"use client";
 import { useState, useEffect, useCallback } from 'react';
 import styles from '@/app/components/PromoCards/PromoCards.module.css';
-import PromoCard from '@/app/components/PromoCard/PromoCard'; // Importa PromoCard
+import PromoCard from '@/app/components/PromoCard/PromoCard';
 
 const PromoCards = () => {
   const [cards, setCards] = useState([]);
@@ -10,7 +11,7 @@ const PromoCards = () => {
 
   const fetchMediaUrl = useCallback(async (mediaId) => {
     try {
-      const response = await fetch(`URL_DE_API/wp/v2/media/${mediaId}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/media/${mediaId}`);
       const media = await response.json();
       return media.source_url;
     } catch (error) {
@@ -21,33 +22,33 @@ const PromoCards = () => {
 
   const fetchCards = useCallback(async () => {
     try {
-      const response = await fetch(`URL_DE_API/wp/v2/promo-card?per_page=8&orderby=id&order=asc`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}wp/v2/promo-card?per_page=8&orderby=id&order=asc`);
       const data = await response.json();
       setCards(data);
+
+      console.log('Promo cards:', data);
 
       const cardsWithUrls = await Promise.all(
         data.map(async (card) => ({
           ...card,
-          imageUrl: await fetchMediaUrl(card.acf.imagen),
+          imageUrl: await fetchMediaUrl(card.acf?.imagen),
         }))
       );
       setCardsWithMedia(cardsWithUrls);
     } catch (error) {
       console.error('Error fetching promo cards:', error);
     }
-  }, [fetchMediaUrl]); // Incluye `fetchMediaUrl` como dependencia para asegurar que se actualice si cambia
+  }, [fetchMediaUrl]);
 
   useEffect(() => {
     fetchCards();
-    const interval = setInterval(() => {
-      fetchCards();
-    }, 5 * 60 * 1000);
-
+    const interval = setInterval(fetchCards, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [fetchCards]); // Incluye `fetchCards` como dependencia para asegurarte de que use siempre la versión más reciente
+  }, [fetchCards]);
 
   return (
     <div className={styles.promoCards}>
+      {sortedCards.length === 0 && <p>No hay tarjetas promocionales para mostrar.</p>}
       {sortedCards.map((card) => (
         <PromoCard
           key={card.id}

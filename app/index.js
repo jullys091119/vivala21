@@ -27,6 +27,7 @@ import Header from '@/app/components/Header/Header';
 import NewsCarousel from '@/app/components/NewsCarousel/NewsCarousel';
 
 
+
 const HomePage = () => {
   const router = useRouter();
   const [slides, setSlides] = useState([]);
@@ -112,42 +113,72 @@ const HomePage = () => {
               <NacionalCardV2 />
 
               <div className={styles.containerNews}>
-                <h2>Deportes</h2>
+                <h2>DEPORTES</h2>
                 <Link href="/categorias/deportes" className={styles.moreNewLinks}>
                   <p>VER MÁS</p>
                 </Link>
               </div>
               <DeportesCarousel />
 
-              <div className={styles.containerNews}>
-              </div>
-
               <div className={styles.twoColumnContainer}>
                 <div className={styles.column}>
-                  <h2>POLICIACA</h2>
-                  <Link href="/categorias/" className={styles.moreNewLinks}>
-                    <p>VER MÁS</p>
-                  </Link>
+                  <div className={styles.headerColumns}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+                      <h2 className={styles.headerColumnsTitle}
+                        style={{
+                          fontSize: 20,
+                          fontWeight: 'bold',
+                          color: '#006238',
+                          fontFamily: 'Montserrat, sans-serif'
+                        }}
+
+                      >POLICIACA</h2>
+                      <Link href="/categorias/" className={styles.moreNewLinks}>
+                        <p>VER MÁS</p>
+                      </Link>
+
+                    </div>
+                  </div>
                   <PoliciacaCol />
                 </div>
+
                 <div className={styles.column}>
-                  <h2>INTERNACIONAL</h2>
-                  <Link href="/categorias/deportes" className={styles.moreNewLinks}>
-                    <p>VER MÁS</p>
-                  </Link>
+                  <div className={styles.headerColumns}>
+                    <div className="conta" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 20 }}>
+                      <h2
+                        style={{
+                          fontSize: 20,
+                          fontWeight: 'bold',
+                          color: '#006238',
+                          fontFamily: 'Montserrat, sans-serif'
+                        }}
+
+                      >INTERNACIONAL</h2>
+                      <Link href="/categorias/deportes" className={styles.moreNewLinks}>
+                        <p>VER MÁS</p>
+                      </Link>
+
+                    </div>
+                  </div>
                   <InternacionalCol />
                 </div>
+
               </div>
             </div>
 
           </div>
           <div className={styles.row}>
-            <div className={`${styles.sidebar} ${styles.col2}`}>
-              <TabNews />
-              <LiveNews />
-              <SubscribeCard />
+            <div className={[styles.sidebar, styles.col2].join(' ')}>
+
+              <div className={styles.stickyWrapper}>
+                <TabNews />
+                <LiveNews />
+                <SubscribeCard />
+                <PromoCards />
+              </div>
             </div>
           </div>
+
         </div>
         <RadioPlayer />
       </div>

@@ -1,10 +1,10 @@
 .cardLg {
   box-sizing: border-box;
-  text-decoration: none;
+
   height: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
+
   ;
 }
 
@@ -24,7 +24,6 @@
   font-family: "Montserrat", sans-serif;
 }
 
-
 .cardLgContent {
   display: flex;
   flex-direction: column;
@@ -32,6 +31,7 @@
   position: inherit;
   font-size: 14px;
   font-family: "Montserrat", sans-serif;
+  color: #000;
 }
 
 .containerAuthorDate {
@@ -45,19 +45,14 @@
   gap: 0.5rem;
 }
 
-.cardLgContent__title {
+/* .cardLgContent__title {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--color-text);
-}
+} */
 
-.cardLg:hover .cardLg__img {
-  filter: brightness(0.8);
-}
 
-.cardLg * {
-  box-sizing: border-box;
-}
+
 
 .cardLg__hero {
   position: relative;
@@ -77,6 +72,7 @@
   height: var(--size);
   transform: translate(-50%, -50%);
   background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 1 !important;
 }
 
 .cardLg__img {
@@ -87,6 +83,45 @@
   height: 100%;
   object-fit: cover;
   transition: 0.3s;
+}
+
+.cardLgCategory {
+  position: relative;
+  font-size: 10px;
+  font-weight: 600;
+  color: white !important;
+  background-color: #006238;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  z-index: 4;
+  margin-bottom: 10px;
+  width: fit-content;
+  padding: 4px 8px;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.cardLgImg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+  transition: 0.3s;
+}
+
+.cardLgTitle {
+  border: 1px 1px solid white !important;
+  position: relative;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white !important;
+  z-index: 11 !important;
+}
+
+.cardLgTitleWrp {
+  border: 1px solid white !important;
 }
 
 /* Resto de los estilos mantenidos */

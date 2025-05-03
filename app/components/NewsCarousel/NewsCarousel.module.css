@@ -10,6 +10,12 @@
   gap: 30px;
 }
 
+.whiteIcon {
+  width: 15px !important;
+  height: 15px !important;
+  filter: brightness(0) invert(1);
+}
+
 .col1 {
   width: 778px;
 }
@@ -53,6 +59,16 @@
   left: 0;
 }
 
+.carouselItem .authorInfo p {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFFFFF;
+  margin-left: 20px;
+  margin-bottom: 10PX;
+}
+
 .carouselCaption {
   position: absolute;
   bottom: 60px;
@@ -64,13 +80,32 @@
   z-index: 2;
 }
 
-.authorInfo {
+.containerContent {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  flex-direction: row;
-  margin-bottom: 24px;
+  gap: 20px;
 }
+
+.authorInfo {
+  filter: brightness(0) invert(1);
+  font-size: 10px !important;
+
+}
+
+
+.iconText {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Espacio entre ícono y texto */
+}
+
+
+.iconText p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
 
 @media screen and (max-width: 767px) {
   .authorInfo {

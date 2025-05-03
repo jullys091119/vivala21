@@ -1,7 +1,7 @@
 .promoCards {
   display: grid;
   gap: 51px;
-  margin-top: 51px;
+  margin-top: 10px;
 }
 
 /* Mobile: 1 card */

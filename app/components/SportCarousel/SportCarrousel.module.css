@@ -24,6 +24,23 @@
   display: block;
 }
 
+:global(.deportesCarousel .swiper-button-next),
+:global(.deportesCarousel .swiper-button-prev) {
+  width: 20px !important;
+  height: 20px !important;
+  background-color: transparent !important;
+  color: white !important;
+  border-radius: 50% !important;
+  font-size: 10px !important;
+  --swiper-navigation-size: 13px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  top: 20% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10;
+}
+
 .cardImageOverlay {
   position: absolute;
   top: 0;
@@ -81,6 +98,7 @@
   gap: 3px;
   height: 246px;
   flex: 1 0 100%;
+  margin-top: 20px;
 }
 
 @media (max-width: 768px) {

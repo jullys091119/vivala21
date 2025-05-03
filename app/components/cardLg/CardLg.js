@@ -19,6 +19,8 @@ const CardLg = ({ currentShow, category = "Internacional", placeholderImage, alt
   };
 
   const limitTitle = (title) => title?.length > 150 ? title.substring(0, 150) + '...' : title;
+  console.log(currentShow.title.rendered, "currentShow");
+
 
   const imageUrl = currentShow?._embedded?.['wp:featuredmedia']?.[0]?.source_url || placeholderImage;
 
@@ -26,17 +28,18 @@ const CardLg = ({ currentShow, category = "Internacional", placeholderImage, alt
     <Link href={`/noticias/${currentShow?.id}`} className={`${styles.cardLg} ${classCss}`}>
       <div className={styles.cardLg__hero}>
         <Image
-          className={styles.cardLg__img}
+          className={styles.cardLgImg}
           src={imageUrl}
           alt={altText}
-          width={500} // Ajusta el ancho según lo necesites
-          height={300} // Ajusta la altura según lo necesites
-          layout="responsive" // Esto asegura que la imagen sea responsiva
+          layout="responsive"
+          width={0}
+          height={0}
         />
-        <div className={styles.cardLg__titleWrp}>
+        <div className={styles.cardLgTitleWrp}>
           <p className={styles.cardLgCategory}>{category}</p>
-          <p className={styles.cardLg__title} dangerouslySetInnerHTML={{ __html: limitTitle(currentShow?.title?.rendered) }} />
+          <p className={styles.cardLgTitle}>{limitTitle(currentShow.title.rendered)}</p>
         </div>
+
       </div>
       <div className={styles.cardLgBody}>
         <div className={styles.cardLgMeta}>

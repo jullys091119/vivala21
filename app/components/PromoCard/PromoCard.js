@@ -8,13 +8,13 @@ const PromoCard = ({ title, image, link }) => {
         <h2 className={styles.promoCardTitle}>{title}</h2>
       </div>
       <div className={styles.promoCardBody}>
-        <Image
+        {image ? <Image
           src={image}
           alt={`Imagen promocional de ${title}`} // Mejor descripción para accesibilidad
           className={styles.promoCardImage}
           width={500} // Agrega un tamaño adecuado según el diseño
           height={300} // Agrega un tamaño adecuado según el diseño
-        />
+        /> : null}
       </div>
     </a>
   );

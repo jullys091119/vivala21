@@ -36,7 +36,7 @@ const DeportesCarousel = () => {
   }
 
   return (
-    <div className={styles.carouselContainer}>
+    <div className={`${styles.carouselContainer} deportesCarousel`}>
       <Swiper
         modules={[Navigation]}
         spaceBetween={20}

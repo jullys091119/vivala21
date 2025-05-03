@@ -15,6 +15,7 @@ import TwitterIcon from '@/app/components/Icons/TwitterIcon';
 import LogoViva from '@/app/assets/images/logo.png';
 import RadioIcon from '@/app/components/Icons/RadioIcon';
 import HomeIcon from '@/app/components/Icons/HomeIcon';
+import RadioStationsDropdown from '@/app/components/RadioStations/RadioStations';
 
 const Header = ({ website, userStore }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -35,10 +36,16 @@ const Header = ({ website, userStore }) => {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
-      // Aquí iría la lógica de búsqueda
-      closeSearch();
+      e.preventDefault(); // evita comportamiento por defecto
+      const query = searchQuery.trim();
+      if (query) {
+        closeSearch();
+        setSearchQuery('');
+        window.location.href = `/noticias/search?s=${encodeURIComponent(query)}`;
+      }
     }
   };
+
 
   return (
     <header className={styles.header}>
@@ -64,10 +71,10 @@ const Header = ({ website, userStore }) => {
         {/* Top Bar */}
         <div className={styles.topBar}>
           <div className={styles.socialIcons}>
-            <FacebookIcon />
-            <InstagramIcon />
-            <YoutubeIcon />
-            <TwitterIcon />
+            <FacebookIcon color='rgb(31, 98, 31' height={26} width={20} />
+            <InstagramIcon color='rgb(31, 98, 31' height={19} width={13} />
+            <YoutubeIcon color='rgb(31, 98, 31' height={22} width={18} />
+            <TwitterIcon color='rgb(31, 98, 31' height={15} width={20} />
           </div>
 
           <div className={styles.searchLogin}>
@@ -123,12 +130,12 @@ const Header = ({ website, userStore }) => {
             <Link href="/categorias/internacional" className={styles.navItem}>INTERNACIONAL</Link>
             <Link href="/categorias/virales" className={styles.navItem}>VIRALES</Link>
 
-            <div className={styles.radioDropdown}>
+            <div className={styles.radioDropdown} onClick={toggleDropdown}>
               <button className="Header-module__D5nTzG__navItem Header-module__D5nTzG__radio">
                 <RadioIcon />
                 RADIO EN VIVO
               </button>
-
+              {isDropdownOpen && <RadioStationsDropdown />}
             </div>
           </nav>
         </div>

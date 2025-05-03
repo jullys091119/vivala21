@@ -1,5 +1,7 @@
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import { RadioProvider } from '@/app/Context';
+
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -17,7 +19,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={`${montserrat.variable} antialiased`}>
-        {children}
+        <RadioProvider>
+          {children}
+        </RadioProvider>
       </body>
     </html>
   );

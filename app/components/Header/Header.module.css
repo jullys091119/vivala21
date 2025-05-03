@@ -2,7 +2,7 @@
 
 .header {
   background-color: white;
-  height: 140px;
+  height: 150px;
   font-family: "Monterrat";
 }
 
@@ -104,12 +104,13 @@
   line-height: 3px;
   position: relative;
   text-decoration: none;
+  gap: 8px;
 }
 
 .radio {
   background-color: #008000;
   color: white;
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-radius: 4px;
   display: flex;
   justify-content: center;
@@ -155,14 +156,14 @@
 }
 
 .dropdownMenu {
+  background: #fff;
+  box-shadow: 0 2px 5px #0003;
   display: none;
+  left: 0;
+  min-width: 200px;
+  padding: 8px 0;
   position: absolute;
   top: 100%;
-  left: 0;
-  background: white;
-  min-width: 200px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  padding: 8px 0;
   z-index: 1000;
 }
 
@@ -172,14 +173,17 @@
 
 .dropdownMenu li {
   list-style: none;
+  padding: 10px 20px;
 }
 
 .dropdownMenu a {
   display: block;
   padding: 8px 16px;
-  color: #1F621F;
   text-decoration: none;
   font-size: 14px;
+  color: #ccc;
+  display: block;
+  text-decoration: none;
 }
 
 .dropdownMenu a:hover {

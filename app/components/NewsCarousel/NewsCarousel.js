@@ -8,7 +8,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Image from 'next/image'; // Importa el componente Image de Next.js
-
+import IconAuthor from '@/public/svg/icon-note.svg';
+import IconDate from '@/public/svg/icon-date.svg' // Asegúrate de que la ruta sea correcta
 const NewsCarousel = () => {
   const router = useRouter();
   const swiperRef = useRef(null);
@@ -57,36 +58,47 @@ const NewsCarousel = () => {
   if (loading) return <div className={styles.loading}>Cargando...</div>;
 
   return (
-    <Swiper
-      modules={[Navigation, Pagination, Autoplay]}
-      spaceBetween={30}
-      slidesPerView={1}
-      navigation
-      pagination={{ clickable: true }}
-      autoplay={{ delay: 5000 }}
-      onSwiper={(swiper) => (swiperRef.current = swiper)}
-    >
-      {slides.map((slide) => (
-        <SwiperSlide key={slide.id}>
-          <div className={styles.carouselItem} onClick={() => navigateToPost(slide.id)}>
-            {/* Usando Image de Next.js para optimizar las imágenes */}
-            <Image
-              src={slide.image}
-              alt={`Imagen de la noticia: ${slide.title}`} // Texto alternativo accesible
-              width={600} // Ajusta el ancho según lo necesites
-              height={400} // Ajusta la altura según lo necesites
-              className={styles.carouselImage}
-            />
-            <div className={styles.carouselCaption}>
-              <div className={styles.authorInfo}>
-                {slide.author} — {slide.date}
+    <div>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay]}
+        // spaceBetween={30}
+        // slidesPerView={1}
+        // pagination={{ clickable: true }}
+        // autoplay={{ delay: 5000 }}
+        onSwiper={(swiper) => (swiperRef.current = swiper)}
+      >
+        {slides.map((slide) => (
+          <SwiperSlide key={slide.id}>
+            <div className={styles.carouselItem} onClick={() => navigateToPost(slide.id)}>
+              <Image
+                src={slide.image}
+                alt={`Imagen de la noticia: ${slide.title}`}
+                width={600}
+                height={400}
+                className={styles.carouselImage}
+              />
+              <div className={styles.carouselCaption}>
+                <div className={styles.containerContent}>
+                  <div className={styles.authorInfo}>
+                    <Image src={IconAuthor} alt="Icono de autor" className={styles.whiteIcon} />
+                    <p>{slide.author}</p>
+                  </div>
+                  <div className={styles.authorInfo}>
+                    <Image src={IconDate} alt="Icono de fecha" className={styles.whiteIcon} />
+                    <p>{slide.date}</p>
+                  </div>
+                </div>
+                <p className={styles.slideTitle}>{limitTitle(slide.title)}</p>
               </div>
-              <p>{limitTitle(slide.title)}</p>
             </div>
-          </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+          </SwiperSlide>
+
+
+        ))
+        }
+      </Swiper >
+
+    </div>
   );
 };
 

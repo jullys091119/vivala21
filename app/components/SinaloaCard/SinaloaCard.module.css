@@ -49,7 +49,7 @@
 
 .sideContent {
   flex-direction: column;
-  gap: 44px;
+  gap: 64px;
   width: 456px;
   height: 100%;
   display: flex;

@@ -8,7 +8,8 @@ import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import CopyLinkButton from '@/app/components/CopyLink/CopyLink';
 import PromoCards from '@/app/components/PromoCards/PromoCards';
 import Header from '@/app/components/Header/Header';
-import SearchComponent from '../search/page';
+import MobileHeader from '@/app/components/HeaderMobile/HeaderMobile';
+
 
 export async function generateStaticParams() {
   const res = await fetch('https://api.vivalanoticia.mx/wp-json/wp/v2/posts?per_page=100');
@@ -95,6 +96,7 @@ export default async function NoticiaPage({ params, searchParams }) {
   return (
     <>
       <Header />
+      <MobileHeader />
       <div className={styles.debugContainer}>
         <div className={styles.layoutContainer}>
           {/* Contenido principal */}
@@ -159,9 +161,6 @@ export default async function NoticiaPage({ params, searchParams }) {
             <LiveNews />
             <SubscribeCard />
             <PromoCards />
-            <SearchComponent />
-
-
           </div>
         </div>
       </div>

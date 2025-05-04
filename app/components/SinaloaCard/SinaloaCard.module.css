@@ -8,11 +8,6 @@
   gap: 28px;
 }
 
-@media screen and (max-width: 767px) {
-  .nacionalCardContainer {
-    flex-direction: column;
-  }
-}
 
 .mainContent {
   background-color: #FFFFFF;
@@ -124,6 +119,15 @@
   .sideCard img {
     height: 136px;
   }
+
+  .nacionalCardContainer {
+    flex-direction: column;
+  }
+
+  .mainContent {
+    max-width: 100%;
+  }
+
 }
 
 .sideCard {

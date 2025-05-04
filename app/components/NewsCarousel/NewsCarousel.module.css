@@ -1,5 +1,5 @@
 .mainContainer {
-  max-width: 1147px;
+  /* max-width: 1147px; */
   margin: 0 auto;
   padding: 30px 15px;
 }
@@ -31,7 +31,7 @@
 .carouselItem {
   position: relative;
   min-height: 420px;
-  width: 100%;
+  max-width: 100%;
   height: 100%;
   overflow: hidden;
 }

@@ -4,6 +4,7 @@
   max-width: 1147px;
   margin: 0 auto;
   padding: 30px 15px;
+  overflow: hidden;
 }
 
 .containerNews {
@@ -240,24 +241,32 @@
   margin-right: 7px;
 }
 
-@media (max-width: 1200px) {
+@media (min-width: 768px) and (max-width: 1200px) {
   .col1 {
-    width: 70%;
+    max-width: 670px;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .row {
+    justify-content: flex-start;
   }
 }
 
 @media (max-width: 1008px) {
+  .col1 {
+    min-width: 100% !important;
+  }
+
   .row {
     flex-direction: column;
   }
 
-  .col1,
-  .col2 {
-    width: 100%;
-  }
+
 }
 
 @media (max-width: 640px) {
+
   .radioMobile {
     display: flex;
   }
@@ -342,6 +351,20 @@
   border-radius: 4px;
   object-fit: cover;
 }
+
+@media (max-width: 768px) {
+
+  .col1 {
+    max-width: 100% !important;
+  }
+
+  .col2 {
+    max-width: 100%;
+    width: 100%;
+  }
+
+}
+
 
 @media (max-width: 640px) {
   .radioStationsDropdown {

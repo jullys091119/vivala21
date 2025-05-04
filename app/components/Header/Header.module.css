@@ -4,6 +4,7 @@
   background-color: white;
   height: 150px;
   font-family: "Monterrat";
+  display: none;
 }
 
 .topBar {

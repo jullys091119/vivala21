@@ -4,7 +4,6 @@
   background-color: white;
   height: 150px;
   font-family: "Monterrat";
-  display: none;
 }
 
 .topBar {
@@ -107,6 +106,8 @@
   text-decoration: none;
   gap: 8px;
 }
+
+
 
 .radio {
   background-color: #008000;
@@ -335,6 +336,8 @@
   margin-top: 8px;
 }
 
+.radioDropdown {}
+
 @media (max-width: 768px) {
   .radioStationsDropdown {
     position: fixed;
@@ -344,5 +347,17 @@
     width: 100%;
     border-radius: 16px 16px 0 0;
     max-height: 70vh;
+  }
+}
+
+@media (max-width: 1112) {
+  .radio {
+    display: none !important;
+  }
+}
+
+@media (max-width: 948px) {
+  .header {
+    display: none;
   }
 }

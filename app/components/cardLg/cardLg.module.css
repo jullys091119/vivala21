@@ -9,7 +9,7 @@
 }
 
 .cardLgBody {
-  padding: 1.5rem;
+  padding: 20px 26px;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -18,7 +18,7 @@
 .cardLgMeta {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 5rem;
   font-size: 12px;
   color: #808080;
   font-family: "Montserrat", sans-serif;
@@ -112,7 +112,6 @@
 }
 
 .cardLgTitle {
-  border: 1px 1px solid white !important;
   position: relative;
   font-size: 1rem;
   font-weight: 600;

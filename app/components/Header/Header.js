@@ -49,7 +49,7 @@ const Header = ({ website, userStore }) => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <div className={styles.container} >
 
         {/* Buscador */}
         {isSearchOpen && (
@@ -67,7 +67,6 @@ const Header = ({ website, userStore }) => {
             </div>
           </div>
         )}
-
         {/* Top Bar */}
         <div className={styles.topBar}>
           <div className={styles.socialIcons}>
@@ -98,7 +97,6 @@ const Header = ({ website, userStore }) => {
           <Link href="/">
             <Image src={LogoViva} alt="Viva La Noticia" className={styles.logo} />
           </Link>
-
           <nav className={styles.mainNav}>
             <Link href="/" className={styles.navItem}>
               <span>

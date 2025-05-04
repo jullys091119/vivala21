@@ -1,11 +1,10 @@
 import Image from 'next/image';
-import styles from './RadioStations.module.css';
+import styles from '@/app/components/RadioStationsMobile/RadioStationMobile.module.css';
 import RJMazatlan from '@/app/assets/images/player/logos/RJ-Mazatlan.png';
 import KeBuenaGusave from '@/app/assets/images/player/KE-BUENA-GUASAVE.png';
 import LaMejorCuliacan from '@/app/assets/images/player/lamejor104fm.png';
 import OscarFm from '@/app/assets/images/player/oscarFM.png';
 import { useRadio } from '@/app/Context';
-
 const stations = [
   {
     name: 'La RJ Mazatlán',
@@ -29,11 +28,10 @@ const stations = [
   },
 ];
 
-export default function RadioStations() {
+export default function RadioStationsMobile() {
   const { selectTrack, currentTrack, isPlaying } = useRadio();
-
   return (
-    <div className={styles.radioStationsDropdown}>
+    <div className={styles.radioStationsDropdownMobile}>
       {stations.map((station, index) => (
         <div className={styles.stationItems} key={index}>
           <button
@@ -48,7 +46,6 @@ export default function RadioStations() {
               <path fill="#006238" d="M8 5v14l11-7z"></path>
             </svg>
           </button>
-
           <Image
             src={station.src}
             alt={station.name}

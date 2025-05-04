@@ -262,6 +262,10 @@
     flex-direction: column;
   }
 
+  .col2 {
+    width: 100%;
+  }
+
 
 }
 

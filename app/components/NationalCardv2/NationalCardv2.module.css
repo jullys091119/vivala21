@@ -164,7 +164,7 @@
   align-self: flex-end;
   font-family: "Montserrat";
   position: relative;
-  margin-top: 70px;
+  margin-top: 57px;
 }
 
 .author-info,
@@ -194,7 +194,7 @@
 .imageContainer {
   position: relative;
   width: 100%;
-  height: 266px;
+  min-height: 200px;
   /* o usa aspect-ratio si prefieres */
   overflow: hidden;
 }

@@ -25,7 +25,7 @@ import InternacionalCol from '@/app/components/Internacional/InternacionalCol';
 import FooterPage from '@/app/components/Footer/Footer';
 import Header from '@/app/components/Header/Header';
 import NewsCarousel from '@/app/components/NewsCarousel/NewsCarousel';
-
+import MobileMenu from './components/HeaderMobile/HeaderMobile';
 
 
 const HomePage = () => {
@@ -98,6 +98,7 @@ const HomePage = () => {
   return (
     <div className={styles.container}>
       <Header />
+      <MobileMenu />
       <div className={styles.mainContainer}>
         <div className={styles.row}>
           <div className={styles.mainContent}>

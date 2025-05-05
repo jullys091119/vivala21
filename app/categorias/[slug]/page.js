@@ -8,6 +8,8 @@ import TabNews from '@/app/components/TabNews/TabNews';
 import LiveNews from '@/app/components/LiveNews/LiveNews';
 import SubscribeCard from '@/app/components/SubscribeCard/SubscribeCard';
 import Image from 'next/image';
+import Header from '@/app/components/Header/Header';
+import MobileHeader from '@/app/components/HeaderMobile/HeaderMobile';
 
 const News = ({ params }) => {
   const slug = use(params).slug;  // Desempaquetamos `params` usando `use()`
@@ -59,79 +61,83 @@ const News = ({ params }) => {
   }
 
   return (
-    <div className={styles.debugContainer}>
-      <div className={styles.layoutContainer}>
-        <div className={styles.mainContent}>
-          {error && <p className={styles.errorMessage}>Error: {error}</p>}
+    <>
+      <Header />
+      <MobileHeader />
+      <div className={styles.debugContainer}>
+        <div className={styles.layoutContainer}>
+          <div className={styles.mainContent}>
+            {error && <p className={styles.errorMessage}>Error: {error}</p>}
 
-          {!loading && totalNoticias > 0 && (
-            <Pagination
-              totalItems={totalNoticias}
-              itemsPerPage={itemsPorPagina}
-              maxVisiblePages={7}
-              onPageChange={handlePageChange}
-            />
-          )}
+            {!loading && totalNoticias > 0 && (
+              <Pagination
+                totalItems={totalNoticias}
+                itemsPerPage={itemsPorPagina}
+                maxVisiblePages={7}
+                onPageChange={handlePageChange}
+              />
+            )}
 
-          <div className={styles.widgetContent}>
-            <div className={styles.newsContainer}>
-              {!loading ? (
-                noticias.map((noticia) => (
-                  <div key={noticia.id} className={styles.newsCard}>
-                    <div className={styles.itemInner}>
-                      {noticia._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
-                        <a href={`/noticias/${noticia.id}`} className={styles.itemThumbnail}>
-                          <Image
-                            src={noticia._embedded['wp:featuredmedia'][0].source_url}
-                            alt={noticia.title.rendered}
-                            width={500}
-                            height={300}
-                            layout="responsive"
-                          />
-                        </a>
-                      )}
-                      <div className={styles.itemContent}>
-                        <div className={styles.itemLabels}>
-                          <a href={`/categorias/${slug}`}>{slug.toUpperCase()}</a>
+            <div className={styles.widgetContent}>
+              <div className={styles.newsContainer}>
+                {!loading ? (
+                  noticias.map((noticia) => (
+                    <div key={noticia.id} className={styles.newsCard}>
+                      <div className={styles.itemInner}>
+                        {noticia._embedded?.['wp:featuredmedia']?.[0]?.source_url && (
+                          <a href={`/noticias/${noticia.id}`} className={styles.itemThumbnail}>
+                            <Image
+                              src={noticia._embedded['wp:featuredmedia'][0].source_url}
+                              alt={noticia.title.rendered}
+                              width={500}
+                              height={300}
+                              layout="responsive"
+                            />
+                          </a>
+                        )}
+                        <div className={styles.itemContent}>
+                          <div className={styles.itemLabels}>
+                            <a href={`/categorias/${slug}`}>{slug.toUpperCase()}</a>
+                          </div>
+                          <h3 className={styles.itemTitle}>
+                            <a href={`/noticias/${noticia.id}`} dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
+                          </h3>
+                          <div className={styles.metaItems}>
+                            <span className={styles.metaItem}>{noticia._embedded?.author?.[0]?.name}</span>
+                            <span className={styles.metaItem}>{new Date(noticia.date).toLocaleDateString('es-ES')}</span>
+                          </div>
+                          <div className={styles.itemSnippet} dangerouslySetInnerHTML={{ __html: noticia.excerpt.rendered }} />
+                          <a className={styles.itemReadMore} href={`/noticias/${noticia.id}`}>Leer más</a>
                         </div>
-                        <h3 className={styles.itemTitle}>
-                          <a href={`/noticias/${noticia.id}`} dangerouslySetInnerHTML={{ __html: noticia.title.rendered }} />
-                        </h3>
-                        <div className={styles.metaItems}>
-                          <span className={styles.metaItem}>{noticia._embedded?.author?.[0]?.name}</span>
-                          <span className={styles.metaItem}>{new Date(noticia.date).toLocaleDateString('es-ES')}</span>
-                        </div>
-                        <div className={styles.itemSnippet} dangerouslySetInnerHTML={{ __html: noticia.excerpt.rendered }} />
-                        <a className={styles.itemReadMore} href={`/noticias/${noticia.id}`}>Leer más</a>
                       </div>
                     </div>
-                  </div>
-                ))
-              ) : (
-                <p>Cargando noticias...</p>
-              )}
+                  ))
+                ) : (
+                  <p>Cargando noticias...</p>
+                )}
+              </div>
             </div>
+
+            {!loading && totalNoticias > 0 && (
+              <Pagination
+                totalItems={totalNoticias}
+                itemsPerPage={itemsPorPagina}
+                maxVisiblePages={7}
+                onPageChange={handlePageChange}
+              />
+            )}
           </div>
 
-          {!loading && totalNoticias > 0 && (
-            <Pagination
-              totalItems={totalNoticias}
-              itemsPerPage={itemsPorPagina}
-              maxVisiblePages={7}
-              onPageChange={handlePageChange}
-            />
-          )}
-        </div>
-
-        <div className={styles.sidebarContent}>
-          <div className={styles.stickySidebar}>
-            <TabNews />
-            <LiveNews />
-            <SubscribeCard />
+          <div className={styles.sidebarContent}>
+            <div className={styles.stickySidebar}>
+              <TabNews />
+              <LiveNews />
+              <SubscribeCard />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

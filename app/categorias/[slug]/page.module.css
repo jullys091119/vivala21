@@ -24,11 +24,6 @@
   gap: 20px;
 }
 
-@media (min-width: 768px) {
-  .itemInner {
-    flex-direction: row;
-  }
-}
 
 .itemThumbnail {
   flex: 0 0 250px;
@@ -128,4 +123,14 @@
 
 .stickySidebar>* {
   margin-bottom: 40px;
+}
+
+@media (max-width: 948px) {
+  .stickySidebar {
+    display: none;
+  }
+
+  .layoutContainer {
+    display: block;
+  }
 }

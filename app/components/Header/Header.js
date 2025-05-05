@@ -129,7 +129,7 @@ const Header = ({ website, userStore }) => {
             <Link href="/categorias/virales" className={styles.navItem}>VIRALES</Link>
 
             <div className={styles.radioDropdown} onClick={toggleDropdown}>
-              <button className="Header-module__D5nTzG__navItem Header-module__D5nTzG__radio">
+              <button className={styles.button}>
                 <RadioIcon />
                 RADIO EN VIVO
               </button>

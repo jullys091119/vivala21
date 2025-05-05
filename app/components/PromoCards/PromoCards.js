@@ -54,7 +54,7 @@ const PromoCards = () => {
           key={card.id}
           title={card.title.rendered}
           image={card.imageUrl}
-          link={card.acf.promobanner_link}
+        // link={card.acf.promobanner_link}
         />
       ))}
     </div>

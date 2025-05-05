@@ -147,7 +147,7 @@ const Header = ({ website, userStore }) => {
                 <CloseIcon />
               </button>
               <nav>
-                {/* Aquí puedes duplicar los mismos enlaces del menú de escritorio si quieres */}
+
               </nav>
             </div>
           </div>
